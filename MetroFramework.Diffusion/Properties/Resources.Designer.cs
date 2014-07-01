@@ -73,6 +73,16 @@ namespace MetroFramework.Diffusion.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap forward_26 {
+            get {
+                object obj = ResourceManager.GetObject("forward-26", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap high_connection_256 {
             get {
                 object obj = ResourceManager.GetObject("high_connection-256", resourceCulture);

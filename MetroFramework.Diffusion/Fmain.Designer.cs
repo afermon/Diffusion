@@ -41,6 +41,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Fmain));
             this.MTCmain = new MetroFramework.Controls.MetroTabControl();
             this.MTPhome = new MetroFramework.Controls.MetroTabPage();
+            this.metroPanel6 = new MetroFramework.Controls.MetroPanel();
+            this.metroLabel17 = new MetroFramework.Controls.MetroLabel();
             this.MLemei = new MetroFramework.Controls.MetroLabel();
             this.metroPanel4 = new MetroFramework.Controls.MetroPanel();
             this.MBgetports = new MetroFramework.Controls.MetroButton();
@@ -49,10 +51,9 @@
             this.metroPanel3 = new MetroFramework.Controls.MetroPanel();
             this.PBsignal = new System.Windows.Forms.PictureBox();
             this.metroTile4 = new MetroFramework.Controls.MetroTile();
-            this.metroButton1 = new MetroFramework.Controls.MetroButton();
             this.MTPsend = new MetroFramework.Controls.MetroTabPage();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.FLPsend = new System.Windows.Forms.FlowLayoutPanel();
             this.MPsectors = new MetroFramework.Controls.MetroPanel();
             this.MBnonesectors = new MetroFramework.Controls.MetroButton();
             this.MBallsectors = new MetroFramework.Controls.MetroButton();
@@ -72,6 +73,8 @@
             this.metroTile5 = new MetroFramework.Controls.MetroTile();
             this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
             this.lineShape1 = new Microsoft.VisualBasic.PowerPacks.LineShape();
+            this.metroPanel7 = new MetroFramework.Controls.MetroPanel();
+            this.metroTile6 = new MetroFramework.Controls.MetroTile();
             this.DGVjob = new System.Windows.Forms.DataGridView();
             this.SMS = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ClientSector = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -79,7 +82,7 @@
             this.ClientPhone = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.send = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MTPdatabase = new MetroFramework.Controls.MetroTabPage();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.SCsend = new System.Windows.Forms.SplitContainer();
             this.DGVdatabase = new System.Windows.Forms.DataGridView();
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clientNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -138,8 +141,10 @@
             this.BWconnect = new System.ComponentModel.BackgroundWorker();
             this.BWsend = new System.ComponentModel.BackgroundWorker();
             this.clientsTableAdapter = new MetroFramework.Diffusion.Diffusion_DataBaseDataSetTableAdapters.ClientsTableAdapter();
+            this.MTBpending = new MetroFramework.Controls.MetroTextBox();
             this.MTCmain.SuspendLayout();
             this.MTPhome.SuspendLayout();
+            this.metroPanel6.SuspendLayout();
             this.metroPanel4.SuspendLayout();
             this.metroPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBsignal)).BeginInit();
@@ -148,15 +153,16 @@
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
-            this.flowLayoutPanel2.SuspendLayout();
+            this.FLPsend.SuspendLayout();
             this.MPsectors.SuspendLayout();
             this.MPmessage.SuspendLayout();
             this.metroPanel2.SuspendLayout();
+            this.metroPanel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVjob)).BeginInit();
             this.MTPdatabase.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SCsend)).BeginInit();
+            this.SCsend.Panel2.SuspendLayout();
+            this.SCsend.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVdatabase)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.clientsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.diffusion_DataBaseDataSet)).BeginInit();
@@ -190,10 +196,9 @@
             // 
             // MTPhome
             // 
-            this.MTPhome.Controls.Add(this.MLemei);
+            this.MTPhome.Controls.Add(this.metroPanel6);
             this.MTPhome.Controls.Add(this.metroPanel4);
             this.MTPhome.Controls.Add(this.metroPanel3);
-            this.MTPhome.Controls.Add(this.metroButton1);
             this.MTPhome.HorizontalScrollbarBarColor = true;
             this.MTPhome.HorizontalScrollbarHighlightOnWheel = false;
             this.MTPhome.HorizontalScrollbarSize = 10;
@@ -206,14 +211,38 @@
             this.MTPhome.VerticalScrollbarHighlightOnWheel = false;
             this.MTPhome.VerticalScrollbarSize = 10;
             // 
+            // metroPanel6
+            // 
+            this.metroPanel6.Controls.Add(this.metroLabel17);
+            this.metroPanel6.Controls.Add(this.MLemei);
+            this.metroPanel6.HorizontalScrollbarBarColor = true;
+            this.metroPanel6.HorizontalScrollbarHighlightOnWheel = false;
+            this.metroPanel6.HorizontalScrollbarSize = 10;
+            this.metroPanel6.Location = new System.Drawing.Point(57, 390);
+            this.metroPanel6.Name = "metroPanel6";
+            this.metroPanel6.Size = new System.Drawing.Size(185, 23);
+            this.metroPanel6.TabIndex = 10;
+            this.metroPanel6.VerticalScrollbarBarColor = true;
+            this.metroPanel6.VerticalScrollbarHighlightOnWheel = false;
+            this.metroPanel6.VerticalScrollbarSize = 10;
+            // 
+            // metroLabel17
+            // 
+            this.metroLabel17.AutoSize = true;
+            this.metroLabel17.Location = new System.Drawing.Point(3, 1);
+            this.metroLabel17.Name = "metroLabel17";
+            this.metroLabel17.Size = new System.Drawing.Size(41, 19);
+            this.metroLabel17.TabIndex = 9;
+            this.metroLabel17.Text = "Emei:";
+            // 
             // MLemei
             // 
             this.MLemei.AutoSize = true;
-            this.MLemei.Location = new System.Drawing.Point(124, 193);
+            this.MLemei.Location = new System.Drawing.Point(50, 1);
             this.MLemei.Name = "MLemei";
-            this.MLemei.Size = new System.Drawing.Size(88, 19);
+            this.MLemei.Size = new System.Drawing.Size(92, 19);
             this.MLemei.TabIndex = 8;
-            this.MLemei.Text = "metroLabel17";
+            this.MLemei.Text = "No conectado";
             // 
             // metroPanel4
             // 
@@ -223,7 +252,7 @@
             this.metroPanel4.HorizontalScrollbarBarColor = true;
             this.metroPanel4.HorizontalScrollbarHighlightOnWheel = false;
             this.metroPanel4.HorizontalScrollbarSize = 10;
-            this.metroPanel4.Location = new System.Drawing.Point(358, 184);
+            this.metroPanel4.Location = new System.Drawing.Point(462, 422);
             this.metroPanel4.Name = "metroPanel4";
             this.metroPanel4.Size = new System.Drawing.Size(320, 37);
             this.metroPanel4.TabIndex = 7;
@@ -256,6 +285,7 @@
             // 
             // MCBports
             // 
+            this.MCBports.Enabled = false;
             this.MCBports.FormattingEnabled = true;
             this.MCBports.ItemHeight = 23;
             this.MCBports.Location = new System.Drawing.Point(3, 3);
@@ -303,16 +333,6 @@
             this.metroTile4.Theme = MetroFramework.MetroThemeStyle.Light;
             this.metroTile4.UseSelectable = true;
             // 
-            // metroButton1
-            // 
-            this.metroButton1.Location = new System.Drawing.Point(72, 360);
-            this.metroButton1.Name = "metroButton1";
-            this.metroButton1.Size = new System.Drawing.Size(75, 23);
-            this.metroButton1.Style = MetroFramework.MetroColorStyle.Orange;
-            this.metroButton1.TabIndex = 2;
-            this.metroButton1.Text = "metroButton1";
-            this.metroButton1.UseSelectable = true;
-            // 
             // MTPsend
             // 
             this.MTPsend.Controls.Add(this.splitContainer2);
@@ -338,7 +358,7 @@
             // 
             // splitContainer2.Panel1
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.flowLayoutPanel2);
+            this.splitContainer2.Panel1.Controls.Add(this.FLPsend);
             // 
             // splitContainer2.Panel2
             // 
@@ -347,17 +367,19 @@
             this.splitContainer2.SplitterDistance = 253;
             this.splitContainer2.TabIndex = 2;
             // 
-            // flowLayoutPanel2
+            // FLPsend
             // 
-            this.flowLayoutPanel2.AutoScroll = true;
-            this.flowLayoutPanel2.Controls.Add(this.MPsectors);
-            this.flowLayoutPanel2.Controls.Add(this.MPmessage);
-            this.flowLayoutPanel2.Controls.Add(this.metroPanel2);
-            this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(0, 0);
-            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(785, 253);
-            this.flowLayoutPanel2.TabIndex = 0;
+            this.FLPsend.AutoScroll = true;
+            this.FLPsend.Controls.Add(this.MPsectors);
+            this.FLPsend.Controls.Add(this.MPmessage);
+            this.FLPsend.Controls.Add(this.metroPanel2);
+            this.FLPsend.Controls.Add(this.metroPanel7);
+            this.FLPsend.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.FLPsend.Enabled = false;
+            this.FLPsend.Location = new System.Drawing.Point(0, 0);
+            this.FLPsend.Name = "FLPsend";
+            this.FLPsend.Size = new System.Drawing.Size(785, 253);
+            this.FLPsend.TabIndex = 0;
             // 
             // MPsectors
             // 
@@ -378,7 +400,7 @@
             // 
             // MBnonesectors
             // 
-            this.MBnonesectors.Location = new System.Drawing.Point(103, 163);
+            this.MBnonesectors.Location = new System.Drawing.Point(108, 163);
             this.MBnonesectors.Name = "MBnonesectors";
             this.MBnonesectors.Size = new System.Drawing.Size(75, 23);
             this.MBnonesectors.TabIndex = 5;
@@ -388,7 +410,7 @@
             // 
             // MBallsectors
             // 
-            this.MBallsectors.Location = new System.Drawing.Point(22, 163);
+            this.MBallsectors.Location = new System.Drawing.Point(16, 163);
             this.MBallsectors.Name = "MBallsectors";
             this.MBallsectors.Size = new System.Drawing.Size(75, 23);
             this.MBallsectors.TabIndex = 4;
@@ -434,7 +456,7 @@
             this.MPmessage.HorizontalScrollbarSize = 10;
             this.MPmessage.Location = new System.Drawing.Point(209, 3);
             this.MPmessage.Name = "MPmessage";
-            this.MPmessage.Size = new System.Drawing.Size(373, 171);
+            this.MPmessage.Size = new System.Drawing.Size(361, 171);
             this.MPmessage.TabIndex = 1;
             this.MPmessage.VerticalScrollbarBarColor = true;
             this.MPmessage.VerticalScrollbarHighlightOnWheel = false;
@@ -442,7 +464,7 @@
             // 
             // MBsend
             // 
-            this.MBsend.Location = new System.Drawing.Point(164, 135);
+            this.MBsend.Location = new System.Drawing.Point(143, 128);
             this.MBsend.Name = "MBsend";
             this.MBsend.Size = new System.Drawing.Size(75, 23);
             this.MBsend.TabIndex = 5;
@@ -453,14 +475,14 @@
             // MTBmessage
             // 
             this.MTBmessage.Lines = new string[0];
-            this.MTBmessage.Location = new System.Drawing.Point(3, 36);
+            this.MTBmessage.Location = new System.Drawing.Point(4, 35);
             this.MTBmessage.MaxLength = 160;
             this.MTBmessage.Multiline = true;
             this.MTBmessage.Name = "MTBmessage";
             this.MTBmessage.PasswordChar = '\0';
             this.MTBmessage.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.MTBmessage.SelectedText = "";
-            this.MTBmessage.Size = new System.Drawing.Size(365, 87);
+            this.MTBmessage.Size = new System.Drawing.Size(352, 87);
             this.MTBmessage.TabIndex = 4;
             this.MTBmessage.UseSelectable = true;
             this.MTBmessage.TextChanged += new System.EventHandler(this.MTBmessage_TextChanged);
@@ -468,9 +490,9 @@
             // MTmessage
             // 
             this.MTmessage.ActiveControl = null;
-            this.MTmessage.Location = new System.Drawing.Point(3, 4);
+            this.MTmessage.Location = new System.Drawing.Point(4, 3);
             this.MTmessage.Name = "MTmessage";
-            this.MTmessage.Size = new System.Drawing.Size(365, 26);
+            this.MTmessage.Size = new System.Drawing.Size(352, 26);
             this.MTmessage.Style = MetroFramework.MetroColorStyle.Orange;
             this.MTmessage.TabIndex = 3;
             this.MTmessage.Text = "Digite el mensage a enviar:               0/160";
@@ -493,9 +515,9 @@
             this.metroPanel2.HorizontalScrollbarBarColor = true;
             this.metroPanel2.HorizontalScrollbarHighlightOnWheel = false;
             this.metroPanel2.HorizontalScrollbarSize = 10;
-            this.metroPanel2.Location = new System.Drawing.Point(588, 3);
+            this.metroPanel2.Location = new System.Drawing.Point(576, 3);
             this.metroPanel2.Name = "metroPanel2";
-            this.metroPanel2.Size = new System.Drawing.Size(194, 114);
+            this.metroPanel2.Size = new System.Drawing.Size(189, 114);
             this.metroPanel2.TabIndex = 2;
             this.metroPanel2.VerticalScrollbarBarColor = true;
             this.metroPanel2.VerticalScrollbarHighlightOnWheel = false;
@@ -560,7 +582,7 @@
             this.metroTile5.ActiveControl = null;
             this.metroTile5.Location = new System.Drawing.Point(3, 3);
             this.metroTile5.Name = "metroTile5";
-            this.metroTile5.Size = new System.Drawing.Size(187, 26);
+            this.metroTile5.Size = new System.Drawing.Size(183, 26);
             this.metroTile5.Style = MetroFramework.MetroColorStyle.Orange;
             this.metroTile5.TabIndex = 2;
             this.metroTile5.Text = "Costos:";
@@ -577,7 +599,7 @@
             this.shapeContainer1.Name = "shapeContainer1";
             this.shapeContainer1.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
             this.lineShape1});
-            this.shapeContainer1.Size = new System.Drawing.Size(194, 114);
+            this.shapeContainer1.Size = new System.Drawing.Size(189, 114);
             this.shapeContainer1.TabIndex = 9;
             this.shapeContainer1.TabStop = false;
             // 
@@ -585,9 +607,39 @@
             // 
             this.lineShape1.Name = "lineShape1";
             this.lineShape1.X1 = 109;
-            this.lineShape1.X2 = 185;
+            this.lineShape1.X2 = 178;
             this.lineShape1.Y1 = 79;
             this.lineShape1.Y2 = 79;
+            // 
+            // metroPanel7
+            // 
+            this.metroPanel7.Controls.Add(this.MTBpending);
+            this.metroPanel7.Controls.Add(this.metroTile6);
+            this.metroPanel7.HorizontalScrollbarBarColor = true;
+            this.metroPanel7.HorizontalScrollbarHighlightOnWheel = false;
+            this.metroPanel7.HorizontalScrollbarSize = 10;
+            this.metroPanel7.Location = new System.Drawing.Point(3, 204);
+            this.metroPanel7.Name = "metroPanel7";
+            this.metroPanel7.Size = new System.Drawing.Size(200, 63);
+            this.metroPanel7.TabIndex = 3;
+            this.metroPanel7.VerticalScrollbarBarColor = true;
+            this.metroPanel7.VerticalScrollbarHighlightOnWheel = false;
+            this.metroPanel7.VerticalScrollbarSize = 10;
+            // 
+            // metroTile6
+            // 
+            this.metroTile6.ActiveControl = null;
+            this.metroTile6.Location = new System.Drawing.Point(3, 3);
+            this.metroTile6.Name = "metroTile6";
+            this.metroTile6.Size = new System.Drawing.Size(194, 26);
+            this.metroTile6.Style = MetroFramework.MetroColorStyle.Orange;
+            this.metroTile6.TabIndex = 3;
+            this.metroTile6.Text = "SMS pendiendes:";
+            this.metroTile6.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.metroTile6.TileImage = global::MetroFramework.Diffusion.Properties.Resources.forward_26;
+            this.metroTile6.TileImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.metroTile6.UseSelectable = true;
+            this.metroTile6.UseTileImage = true;
             // 
             // DGVjob
             // 
@@ -666,7 +718,7 @@
             // 
             // MTPdatabase
             // 
-            this.MTPdatabase.Controls.Add(this.splitContainer1);
+            this.MTPdatabase.Controls.Add(this.SCsend);
             this.MTPdatabase.HorizontalScrollbarBarColor = true;
             this.MTPdatabase.HorizontalScrollbarHighlightOnWheel = false;
             this.MTPdatabase.HorizontalScrollbarSize = 10;
@@ -679,20 +731,20 @@
             this.MTPdatabase.VerticalScrollbarHighlightOnWheel = false;
             this.MTPdatabase.VerticalScrollbarSize = 10;
             // 
-            // splitContainer1
+            // SCsend
             // 
-            this.splitContainer1.BackColor = System.Drawing.Color.Transparent;
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.SCsend.BackColor = System.Drawing.Color.Transparent;
+            this.SCsend.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SCsend.Location = new System.Drawing.Point(0, 0);
+            this.SCsend.Name = "SCsend";
+            this.SCsend.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // splitContainer1.Panel2
+            // SCsend.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.DGVdatabase);
-            this.splitContainer1.Size = new System.Drawing.Size(785, 459);
-            this.splitContainer1.SplitterDistance = 213;
-            this.splitContainer1.TabIndex = 2;
+            this.SCsend.Panel2.Controls.Add(this.DGVdatabase);
+            this.SCsend.Size = new System.Drawing.Size(785, 459);
+            this.SCsend.SplitterDistance = 213;
+            this.SCsend.TabIndex = 2;
             // 
             // DGVdatabase
             // 
@@ -1407,13 +1459,11 @@
             this.MPBprogress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.MPBprogress.HideProgressText = false;
             this.MPBprogress.Location = new System.Drawing.Point(7, 570);
-            this.MPBprogress.Maximum = 300;
             this.MPBprogress.Name = "MPBprogress";
             this.MPBprogress.Size = new System.Drawing.Size(242, 23);
             this.MPBprogress.Step = 1;
             this.MPBprogress.Style = MetroFramework.MetroColorStyle.Orange;
             this.MPBprogress.TabIndex = 1;
-            this.MPBprogress.Value = 60;
             // 
             // MPSprogress
             // 
@@ -1444,6 +1494,23 @@
             // 
             this.clientsTableAdapter.ClearBeforeFill = true;
             // 
+            // MTBpending
+            // 
+            this.MTBpending.Lines = new string[] {
+        "0"};
+            this.MTBpending.Location = new System.Drawing.Point(16, 35);
+            this.MTBpending.MaxLength = 32767;
+            this.MTBpending.Name = "MTBpending";
+            this.MTBpending.PasswordChar = '\0';
+            this.MTBpending.ReadOnly = true;
+            this.MTBpending.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.MTBpending.SelectedText = "";
+            this.MTBpending.Size = new System.Drawing.Size(167, 23);
+            this.MTBpending.TabIndex = 4;
+            this.MTBpending.Text = "0";
+            this.MTBpending.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.MTBpending.UseSelectable = true;
+            // 
             // Fmain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1463,7 +1530,8 @@
             this.Load += new System.EventHandler(this.Fmain_Load);
             this.MTCmain.ResumeLayout(false);
             this.MTPhome.ResumeLayout(false);
-            this.MTPhome.PerformLayout();
+            this.metroPanel6.ResumeLayout(false);
+            this.metroPanel6.PerformLayout();
             this.metroPanel4.ResumeLayout(false);
             this.metroPanel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PBsignal)).EndInit();
@@ -1472,16 +1540,17 @@
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
-            this.flowLayoutPanel2.ResumeLayout(false);
+            this.FLPsend.ResumeLayout(false);
             this.MPsectors.ResumeLayout(false);
             this.MPmessage.ResumeLayout(false);
             this.metroPanel2.ResumeLayout(false);
             this.metroPanel2.PerformLayout();
+            this.metroPanel7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGVjob)).EndInit();
             this.MTPdatabase.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
+            this.SCsend.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.SCsend)).EndInit();
+            this.SCsend.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGVdatabase)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.clientsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.diffusion_DataBaseDataSet)).EndInit();
@@ -1504,7 +1573,6 @@
 
         private Controls.MetroTabControl MTCmain;
         private Controls.MetroTabPage MTPhome;
-        private Controls.MetroButton metroButton1;
         private Controls.MetroTabPage MTPconfig;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private Controls.MetroPanel MPport;
@@ -1539,7 +1607,7 @@
         private Controls.MetroTile metroTile2;
         private System.IO.Ports.SerialPort SerialPort;
         private Controls.MetroTabPage MTPdatabase;
-        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.SplitContainer SCsend;
         private System.Windows.Forms.DataGridView DGVdatabase;
         private Controls.MetroTabPage MTPabout;
         private Controls.MetroPanel metroPanel1;
@@ -1548,7 +1616,7 @@
         private Controls.MetroTabPage MTPsend;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.DataGridView DGVjob;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
+        private System.Windows.Forms.FlowLayoutPanel FLPsend;
         private Controls.MetroPanel MPsectors;
         private Controls.MetroTile metroTile3;
         private Controls.MetroPanel MPmessage;
@@ -1601,6 +1669,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ClientName;
         private System.Windows.Forms.DataGridViewTextBoxColumn ClientPhone;
         private System.Windows.Forms.DataGridViewTextBoxColumn send;
+        private Controls.MetroPanel metroPanel6;
+        private Controls.MetroLabel metroLabel17;
+        private Controls.MetroPanel metroPanel7;
+        private Controls.MetroTile metroTile6;
+        private Controls.MetroTextBox MTBpending;
     }
 }
 

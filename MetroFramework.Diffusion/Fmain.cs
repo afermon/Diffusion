@@ -64,8 +64,6 @@ namespace MetroFramework.Diffusion
                    LOG("SMS pending");
                 }
             }
-            //disabled tabs
-           
         }
         private void loadportconfig()
         { //load port config from properties
@@ -313,6 +311,7 @@ namespace MetroFramework.Diffusion
                     }
                 }
                 MBconnect.Enabled = true;
+                MCBports.Enabled = true;
             }
         }
         private void SerialDisconnect()
@@ -320,6 +319,8 @@ namespace MetroFramework.Diffusion
             if (SerialPort.IsOpen) SerialPort.Close();
             MBconnect.Text = "Conectar";
             LOG("Disconnected!");
+            FLPsend.Enabled = false;
+            MPport.Enabled = true;
             PBsignal.Image = MetroFramework.Diffusion.Properties.Resources.no_connection_256;
         }
         private void MBconnect_Click(object sender, EventArgs e)
@@ -386,6 +387,8 @@ namespace MetroFramework.Diffusion
                         LOG("Network aviable!");
                         MBconnect.Text = "Desconectar";
                         LOG("Connected!");
+                        FLPsend.Enabled = true;
+                        MPport.Enabled = false;
                         SerialPort.Write("AT+CSQ \r");
                         wait();
                         InputBuffer = InputBuffer.Substring(InputBuffer.IndexOf(':') + 2);//UPDATE HERE
