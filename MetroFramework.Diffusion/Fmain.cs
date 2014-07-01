@@ -20,13 +20,26 @@ namespace MetroFramework.Diffusion
             CheckForIllegalCrossThreadCalls = false;
         }
         #region Variables
-        private string InputBuffer = " ";
-        private string PortName;
+        private string InputBuffer = "buffer";//never null
         private bool NewData = false;
         private int signal;
         #endregion
-
-        #region LOADS
+        private void LOG(string message)
+        {
+            string[] msg = new string[] { message, DateTime.Now.ToString("t") };
+            DGVlog.Rows.Add(msg);
+        }
+        private void wait()
+        {
+            int runs = 0;
+            while (!NewData & runs <= 20)
+            {
+                System.Threading.Thread.Sleep(500);
+                runs++;
+            }
+            NewData = false;
+        }
+        #region OnLoad
         private void Fmain_Load(object sender, EventArgs e)
         {// TODO: esta línea de código carga datos en la tabla 'diffusion_DataBaseDataSet.Clients' Puede moverla o quitarla según sea necesario.
             this.clientsTableAdapter.Fill(this.diffusion_DataBaseDataSet.Clients);
@@ -38,8 +51,20 @@ namespace MetroFramework.Diffusion
             {
                 this.LBsectors.Items.Add(sectors["ClientSector"].ToString());
             }
+            LOG("Sectors Loaded");
+            if (Convert.ToInt32(clientsTableAdapter.GetPendingCount()) > 0)
+            {
+                DialogResult resultsend = MetroMessageBox.Show(this, "Para enviarlos presione \"Enviar\" sin selecionar sectores.", "Tiene envios pendientes. Desea conservarlos?", MessageBoxButtons.YesNo);
+                if (resultsend == DialogResult.No)
+                {
+                    clientsTableAdapter.ResetJob();
+                }
+                else
+                {
+                   LOG("SMS pending");
+                }
+            }
         }
-
         private void loadportconfig()
         { //load port config from properties
             MCBflow.SelectedIndex = Properties.Settings.Default.PortHandshake - 1;
@@ -71,7 +96,6 @@ namespace MetroFramework.Diffusion
               e.Handled = true; // disable others
             }
         }
-
         private void MTBsim_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (Char.IsDigit(e.KeyChar) || Char.IsControl(e.KeyChar)) // Only numbers
@@ -83,7 +107,6 @@ namespace MetroFramework.Diffusion
                 e.Handled = true; // disable others
             }
         }
-
         private void MTBsmscenter_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (Char.IsDigit(e.KeyChar) || Char.IsControl(e.KeyChar)) // Only numbers
@@ -95,7 +118,6 @@ namespace MetroFramework.Diffusion
                 e.Handled = true; // disable others
             }
         }
-
         private void MTBreadbuffer_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (Char.IsDigit(e.KeyChar) || Char.IsControl(e.KeyChar)) // Only numbers
@@ -107,7 +129,6 @@ namespace MetroFramework.Diffusion
                 e.Handled = true; // disable others
             }
         }
-
         private void MTBwritebuffer_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (Char.IsDigit(e.KeyChar) || Char.IsControl(e.KeyChar)) // Only numbers
@@ -119,7 +140,6 @@ namespace MetroFramework.Diffusion
                 e.Handled = true; // disable others
             }
         }
-
         private void MTBwaittime_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (Char.IsDigit(e.KeyChar) || Char.IsControl(e.KeyChar)) // Only numbers
@@ -132,10 +152,7 @@ namespace MetroFramework.Diffusion
             }
         }
         #endregion
-        private void LOG(string message) {
-            string[] msg = new string[] { message, DateTime.Now.ToString("t") };
-            DGVlog.Rows.Add(msg);
-        }
+        #region Config
         private void MBresetconfig_Click(object sender, EventArgs e)
         {
            DialogResult resetconfigResult = MetroMessageBox.Show(this, "Desea restablecer la configuración default del puerto", "Poner configuración default?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
@@ -190,8 +207,10 @@ namespace MetroFramework.Diffusion
                 Properties.Settings.Default.Netpin = Convert.ToInt32(MTBsim.Text);
                 Properties.Settings.Default.Netsmscenter = Convert.ToDouble(MTBsmscenter.Text);
                 Properties.Settings.Default.Save();
+                MLcostxsms.Text = Properties.Settings.Default.Netcostxsms.ToString();
             }
         }
+        #endregion
         #region Sectors
         private void LBsectors_DrawItem(object sender, DrawItemEventArgs e)
         {// change color of listbox
@@ -206,7 +225,6 @@ namespace MetroFramework.Diffusion
             // If the ListBox has focus, draw a focus rectangle around the selected item.
             e.DrawFocusRectangle();
         }
-
         private void MBallsectors_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < LBsectors.Items.Count; i++)
@@ -214,7 +232,6 @@ namespace MetroFramework.Diffusion
                 LBsectors.SetSelected(i, true);
             }
         }
-
         private void MBnonesectors_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < LBsectors.Items.Count; i++)
@@ -222,23 +239,58 @@ namespace MetroFramework.Diffusion
                 LBsectors.SetSelected(i, false);
             }
         }
+        private void LBsectors_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MBnonesectors.Enabled = false;
+            MBallsectors.Enabled = false;
+            int ClientsCount = 0;
+            foreach (string sector in LBsectors.SelectedItems)
+            {
+                ClientsCount = ClientsCount + Convert.ToInt32(clientsTableAdapter.GetClientCount(sector));
+            }
+            MLsmscount.Text = ClientsCount.ToString();
+            float totalcost = ClientsCount * Properties.Settings.Default.Netcostxsms;
+            MLtotalcost.Text = totalcost.ToString();
+            MBnonesectors.Enabled = true;
+            MBallsectors.Enabled = true;
+        }
         #endregion
         private void MTBmessage_TextChanged(object sender, EventArgs e)
         {
             MTmessage.Text = "Digite el mensage a enviar:               " + MTBmessage.Text.Length.ToString() + "/160";
         }
-
+        private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            try
+            {
+                InputBuffer = SerialPort.ReadExisting().Trim().ToString();
+                LOG("> " + InputBuffer.Trim());
+                if (InputBuffer.Contains("+CME ERROR: 11") || InputBuffer.Contains("+CME ERROR: 12"))
+                {
+                    MetroMessageBox.Show(this, "Actualize el pin en \"Configuración\" y reinicie la aplicacion.!", "PIN/PUK Requerido!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                NewData = true;
+            }
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(this, ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        #region Connection
         private void MBgetports_Click(object sender, EventArgs e)
         {
             string[] ports = SerialPort.GetPortNames();
+            MCBports.Items.Clear();
             if (ports.Length == 0)
             {
                 MetroMessageBox.Show(this, "Por favor conecte la Data Card e intentelo nuevamente.", "No se encontraron dispositivos!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 LOG("No ports detected!");
+                MCBports.Items.Add("Ninguno");
+                MCBports.SelectedItem = "Ninguno";
+                MBconnect.Enabled = false;
             }
             else
             {
-                MCBports.Items.Clear();
                 foreach (string port in ports)
                 {
                     try
@@ -258,66 +310,34 @@ namespace MetroFramework.Diffusion
                         MCBports.SelectedItem = port;
                     }
                 }
+                MBconnect.Enabled = true;
             }
         }
-
-        private void MBconnect_Click(object sender, EventArgs e)
+        private void SerialDisconnect()
         {
-            try {
-                if (MBconnect.Text == "Conectar")
-                {
-                    BWconnect.RunWorkerAsync();
-                    PortName = MCBports.SelectedItem.ToString();
-                    MPSprogress.Visible = true;
-                }
-                else
-                {
-                    SerialDisconnect();
-                }
-         }
-        catch (Exception ex){
-            MessageBox.Show("Error al abrir el puerto serial: " + ex.Message);
-            //log("Error al abrir el puerto serial: " + ex.Message);
-             }
-        }
-
-        private void SerialDisconnect() {
             if (SerialPort.IsOpen) SerialPort.Close();
             MBconnect.Text = "Conectar";
             LOG("Disconnected!");
             PBsignal.Image = MetroFramework.Diffusion.Properties.Resources.no_connection_256;
         }
-        private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        private void MBconnect_Click(object sender, EventArgs e)
         {
-            try
+            if (MBconnect.Text == "Conectar")
             {
-                InputBuffer = SerialPort.ReadExisting().Trim().ToString();
-                LOG("> " + InputBuffer.Trim());
-                if (InputBuffer.Contains("+CME ERROR: 11") || InputBuffer.Contains("+CME ERROR: 12"))
-                {
-                    MetroMessageBox.Show(this, "Actualize el pin en \"Configuración\" y reinicie la aplicacion.!", "PIN/PUK Requerido!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                NewData = true;
+                BWconnect.RunWorkerAsync();
+                MPSprogress.Visible = true;
             }
-            catch (Exception ex)
+            else
             {
-                MetroMessageBox.Show(this, ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                SerialDisconnect();
             }
-        }
-        private void wait() {
-            int runs = 0;
-            while (!NewData & runs <= 20 ) {
-                System.Threading.Thread.Sleep(500);
-                runs++;
-            }
-            NewData = false;
         }
         private void BWconnect_DoWork(object sender, DoWorkEventArgs e)
         {
             try
             {
                 if (SerialPort.IsOpen) SerialPort.Close();
-                SerialPort.PortName = PortName;
+                SerialPort.PortName = MCBports.SelectedItem.ToString();
                 SerialPort.Parity = (System.IO.Ports.Parity)Properties.Settings.Default.PortParity;
                 SerialPort.Handshake = (System.IO.Ports.Handshake)Properties.Settings.Default.PortHandshake;
                 SerialPort.StopBits = (System.IO.Ports.StopBits)Properties.Settings.Default.PortStopbits;
@@ -392,152 +412,153 @@ namespace MetroFramework.Diffusion
                 }
             }
         }
-
         private void BWconnect_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             MPSprogress.Visible = false;
         }
-
+        #endregion
+        #region Send
         private void MBsend_Click(object sender, EventArgs e)
         {
             if (MBsend.Text == "Enviar")
             {
-                if (totalsms > 0)
+                if (MLsmscount.Text != "0")
                 {
-                    DialogResult resultsend = MessageBox.Show("Esta seguro de enviar " + totalsms.ToString() + " SMS?", "Advertencia", MessageBoxButtons.YesNo);
-                    if (resultsend == DialogResult.Yes)
+                    if (MTBmessage.Text.Length > 0)
                     {
-                        MBsend.Text = "Cancelar";
-                        BWsend.RunWorkerAsync();
-                        LOG("Enviando SMS");
+                        DialogResult resultsend = MetroMessageBox.Show(this, "Presione Yes si esta seguro.", "Esta seguro de enviar " + MLsmscount.Text + " SMS?", MessageBoxButtons.YesNo);
+                        if (resultsend == DialogResult.Yes)
+                        {
+                            MBsend.Text = "Cancelar";
+                            BWsend.RunWorkerAsync();
+                            LOG("Sending SMS");
+                        }
+                    }
+                    else 
+                    { 
+                         MetroMessageBox.Show(this, "Por favor digite el mensaje e intentelo nuevamente.", "SMS en blanco!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 else
                 {
-                    DialogResult resultsend = MessageBox.Show("Esta seguro de enviar los mensajes pendientes?", "Advertencia", MessageBoxButtons.YesNo);
-                    if (resultsend == DialogResult.Yes)
+                    if (Convert.ToInt32(clientsTableAdapter.GetPendingCount()) > 0){
+                        DialogResult resultsend = MetroMessageBox.Show(this, "Presione Yes si esta seguro.", "Esta seguro de enviar los mensajes pendientes?", MessageBoxButtons.YesNo);
+                        if (resultsend == DialogResult.Yes)
+                        {
+                            MBsend.Text = "Cancelar";
+                            BWsend.RunWorkerAsync();
+                            LOG("Sending old SMS");
+                        }
+                    }
+                    else
                     {
-                        MBsend.Text = "Cancelar";
-                        BWsend.RunWorkerAsync();
-                        LOG("Enviando SMS pendientes");
+                        MetroMessageBox.Show(this, "Por favor seleccione los sectores e intentelo nuevamente. ", "No hay SMS pendientes!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-
             }
             else
             {
-                DialogResult resultsend = MessageBox.Show("Esta seguro de cancelar el envio?", "Advertencia", MessageBoxButtons.YesNo);
+                DialogResult resultsend = MetroMessageBox.Show(this, "Se cancelaran todos los mensajes pendientes. Todavia estaran en memoria.", "Esta seguro de cancelar el envio?", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
                 if (resultsend == DialogResult.Yes)
                 {
                     MBsend.Text = "Enviar";
                     BWsend.CancelAsync();
-                    pbprogress.Value = 0;
-                    LOG("envio cancelado");
+                    MPBprogress.Value = 0;
+                    LOG("Job canceled.");
+                    DialogResult result = MetroMessageBox.Show(this, "Se eliminaran permanentemente todos los mensajes pendientes.", "Desea eliminar la cola de pendientes?", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                    if (result == DialogResult.Yes)
+                    {
+                        clientsTableAdapter.ResetJob();
+                        LOG("Queue cleared.");
+                    }
                 }
             }
         }
-
         private void BWsend_DoWork(object sender, DoWorkEventArgs e)
         {
-            // WHEN YOU ESTART SENDING SMS
+            MPSprogress.Visible = true;
             e.Result = "";
             int pgr = 0;
-            foreach (string sector in chksectores.CheckedItems)
+            string result = " ";
+            foreach (string st in LBsectors.SelectedItems)
             {
-                usersTableAdapter.UpdateUsers("true", tbmsg.Text, sector);
-                System.Threading.Thread.Sleep(500);
-                log(sector + " Pendiente.");
+                clientsTableAdapter.UpdateClientsToInform(true, MTBmessage.Text, st);
+                LOG(st + " Pending.");
             }
-            pbprogress.Maximum = this.usersTableAdapter.GetPendientes().Count;
-            chksectores.Enabled = false;
-            tbmsg.Enabled = false;
-            foreach (DataRow pendientes in this.usersTableAdapter.GetPendientes().Rows)
+            MPBprogress.Maximum = Convert.ToInt32(clientsTableAdapter.GetPendingCount());
+            foreach (DataRow pending in this.clientsTableAdapter.GetPending().Rows)
             {
                 pgr++;
-                log("Enviando " + pendientes["telefono"].ToString());
-                //CODIGO PARA ENVIAR SMS
-                SerialModem.Write("AT+CMGF=1" + (Char)13);
-                System.Threading.Thread.Sleep(1000);
-                SerialModem.Write("AT+CMGS=" + (Char)34 + pendientes["telefono"].ToString() + (Char)34 + (Char)13);
-                System.Threading.Thread.Sleep(1000);
-                //Enviar texto SMS a dispositivo GSM
-                SerialModem.Write(pendientes["sms"].ToString() + (Char)26);
-                Application.DoEvents();
-                System.Threading.Thread.Sleep(1000);
-                INPUTBUFFER2 = INPUTBUFFER;
-                while (INPUTBUFFER2 == INPUTBUFFER)
+                LOG("Enviando " + pending["ClientPhone"].ToString());
+                if (pending["ClientPhone"].ToString().StartsWith("2") || pending["ClientPhone"].ToString().StartsWith(" ") || pending["ClientPhone"].ToString() != String.Empty)
                 {
-                    System.Threading.Thread.Sleep(500);
-
-                }
-                if (INPUTBUFFER.Contains("OK"))
-                {
-                    RESULT = "Correcto";
-                    usersTableAdapter.UpdateENVIADO(pendientes["telefono"].ToString());
-                }
-                else
-                {
-                    RESULT = "Error";
-                }
-                backgroundWorker.ReportProgress(pgr);
-                string[] envio = new string[] { pgr.ToString(), pendientes["sector"].ToString(), pendientes["nombre"].ToString(), pendientes["telefono"].ToString(), RESULT };
-                dgwork.Rows.Insert(0, envio);
-                if (RESULT == "Correcto")
-                {
-                    dgwork.Rows[0].DefaultCellStyle.BackColor = Color.Green;
+                    SerialPort.Write("AT+CMGF=1" + (Char)13);
+                    wait();
+                    SerialPort.Write("AT+CMGS=" + (Char)34 + pending["ClientPhone"].ToString() + (Char)34 + (Char)13);
+                    wait();
+                    SerialPort.Write(pending["Message"].ToString() + (Char)26);
+                    Application.DoEvents();
+                    wait();
+                    if (InputBuffer.Contains("OK"))
+                    {
+                        result = "Enviado";
+                        clientsTableAdapter.UpdateSent(pending["ClientPhone"].ToString());
+                    }
+                    else
+                    {
+                        result = "Error";
+                    }
                 }
                 else
                 {
-                    dgwork.Rows[0].DefaultCellStyle.BackColor = Color.Red;
+                    LOG(pending["ClientName"].ToString() + "Phone error!");
                 }
-                if (backgroundWorker.CancellationPending)
+                BWsend.ReportProgress(pgr);
+                string[] job = new string[] { pgr.ToString(), pending["ClientSector"].ToString(), pending["ClientName"].ToString(), pending["ClientPhone"].ToString(), result };
+                DGVjob.Rows.Insert(0, job);
+                if (result == "Enviado")
+                {
+                    DGVjob.Rows[0].DefaultCellStyle.BackColor = Color.Green;
+                }
+                else
+                {
+                    DGVjob.Rows[0].DefaultCellStyle.BackColor = Color.Red;
+                }
+                if (BWsend.CancellationPending)
                 {
                     e.Cancel = true;
                     return;
                 }
             }
         }
-
         private void BWsend_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            pbprogress.Value = e.ProgressPercentage;
-            int porcentage = (e.ProgressPercentage * 100) / pbprogress.Maximum;
-            lbprogress.Text = porcentage.ToString() + "%";
-            if (e.ProgressPercentage == 1 & totalsms > 0) loadings.Hide();
+            MPBprogress.Value = e.ProgressPercentage;
         }
-
         private void BWsend_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Cancelled)
             {
+                MetroMessageBox.Show(this, "El envio ha sido cancelado!!", "Envio cancelado!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 MessageBox.Show("El envio ha sido cancelado!!");
-                log("Envio cancelado");
+                LOG("Job canceled");
+
             }
             else if (e.Error != null)
             {
-                MessageBox.Show("Error!!. Detalles: " + (e.Error as Exception).ToString());
-                log("Error");
+                MetroMessageBox.Show(this, "Error!!. Detalles: " + (e.Error as Exception).ToString(), "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                LOG("Error");
             }
             else
             {
-                MessageBox.Show("El envio fue completado exitosamente!!.");
-                log("Envio completado");
+                MetroMessageBox.Show(this, "El envio fue completado exitosamente.", "Envio completado!", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                LOG("Job completed");
             }
-            pbprogress.Value = 0;
-            lbprogress.Text = "0%";
-            btnsend.Text = "Enviar";
-            chksectores.Enabled = true;
-            tbmsg.Enabled = true;
+            MPBprogress.Value = 0;
+            MBsend.Text = "Enviar";
+            MPSprogress.Visible = false;
         }
-
-        private void LBsectors_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            for each
-        }
-
-
-       
-       
+        #endregion
 
     }
 }

@@ -72,8 +72,7 @@
             this.metroTile5 = new MetroFramework.Controls.MetroTile();
             this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
             this.lineShape1 = new Microsoft.VisualBasic.PowerPacks.LineShape();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.sdawedq = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DGVjob = new System.Windows.Forms.DataGridView();
             this.MTPdatabase = new MetroFramework.Controls.MetroTabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.DGVdatabase = new System.Windows.Forms.DataGridView();
@@ -131,9 +130,14 @@
             this.SerialPort = new System.IO.Ports.SerialPort(this.components);
             this.MPBprogress = new MetroFramework.Controls.MetroProgressBar();
             this.MPSprogress = new MetroFramework.Controls.MetroProgressSpinner();
-            this.clientsTableAdapter = new MetroFramework.Diffusion.Diffusion_DataBaseDataSetTableAdapters.ClientsTableAdapter();
             this.BWconnect = new System.ComponentModel.BackgroundWorker();
             this.BWsend = new System.ComponentModel.BackgroundWorker();
+            this.clientsTableAdapter = new MetroFramework.Diffusion.Diffusion_DataBaseDataSetTableAdapters.ClientsTableAdapter();
+            this.SMS = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ClientSector = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ClientName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ClientPhone = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.send = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MTCmain.SuspendLayout();
             this.MTPhome.SuspendLayout();
             this.metroPanel4.SuspendLayout();
@@ -148,7 +152,7 @@
             this.MPsectors.SuspendLayout();
             this.MPmessage.SuspendLayout();
             this.metroPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVjob)).BeginInit();
             this.MTPdatabase.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -178,7 +182,7 @@
             this.MTCmain.Controls.Add(this.MTPabout);
             this.MTCmain.Location = new System.Drawing.Point(3, 63);
             this.MTCmain.Name = "MTCmain";
-            this.MTCmain.SelectedIndex = 1;
+            this.MTCmain.SelectedIndex = 0;
             this.MTCmain.Size = new System.Drawing.Size(793, 501);
             this.MTCmain.Style = MetroFramework.MetroColorStyle.Orange;
             this.MTCmain.TabIndex = 0;
@@ -239,6 +243,7 @@
             // 
             // MBconnect
             // 
+            this.MBconnect.Enabled = false;
             this.MBconnect.Location = new System.Drawing.Point(240, 9);
             this.MBconnect.Name = "MBconnect";
             this.MBconnect.Size = new System.Drawing.Size(75, 23);
@@ -337,7 +342,7 @@
             // 
             // splitContainer2.Panel2
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.dataGridView2);
+            this.splitContainer2.Panel2.Controls.Add(this.DGVjob);
             this.splitContainer2.Size = new System.Drawing.Size(785, 459);
             this.splitContainer2.SplitterDistance = 253;
             this.splitContainer2.TabIndex = 2;
@@ -584,13 +589,13 @@
             this.lineShape1.Y1 = 79;
             this.lineShape1.Y2 = 79;
             // 
-            // dataGridView2
+            // DGVjob
             // 
-            this.dataGridView2.AllowUserToAddRows = false;
-            this.dataGridView2.AllowUserToDeleteRows = false;
-            this.dataGridView2.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
-            this.dataGridView2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dataGridView2.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.DGVjob.AllowUserToAddRows = false;
+            this.DGVjob.AllowUserToDeleteRows = false;
+            this.DGVjob.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
+            this.DGVjob.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.DGVjob.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -598,10 +603,14 @@
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(119)))), ((int)(((byte)(53)))));
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.sdawedq});
+            this.DGVjob.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.DGVjob.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVjob.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.SMS,
+            this.ClientSector,
+            this.ClientName,
+            this.ClientPhone,
+            this.send});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -609,11 +618,11 @@
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(119)))), ((int)(((byte)(53)))));
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView2.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.ReadOnly = true;
+            this.DGVjob.DefaultCellStyle = dataGridViewCellStyle2;
+            this.DGVjob.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DGVjob.Location = new System.Drawing.Point(0, 0);
+            this.DGVjob.Name = "DGVjob";
+            this.DGVjob.ReadOnly = true;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -621,15 +630,9 @@
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(119)))), ((int)(((byte)(53)))));
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView2.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.dataGridView2.Size = new System.Drawing.Size(785, 202);
-            this.dataGridView2.TabIndex = 0;
-            // 
-            // sdawedq
-            // 
-            this.sdawedq.HeaderText = "Column3qawedqwedq";
-            this.sdawedq.Name = "sdawedq";
-            this.sdawedq.ReadOnly = true;
+            this.DGVjob.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.DGVjob.Size = new System.Drawing.Size(785, 202);
+            this.DGVjob.TabIndex = 0;
             // 
             // MTPdatabase
             // 
@@ -1396,10 +1399,6 @@
             this.MPSprogress.Value = 30;
             this.MPSprogress.Visible = false;
             // 
-            // clientsTableAdapter
-            // 
-            this.clientsTableAdapter.ClearBeforeFill = true;
-            // 
             // BWconnect
             // 
             this.BWconnect.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BWconnect_DoWork);
@@ -1410,6 +1409,40 @@
             this.BWsend.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BWsend_DoWork);
             this.BWsend.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.BWsend_ProgressChanged);
             this.BWsend.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BWsend_RunWorkerCompleted);
+            // 
+            // clientsTableAdapter
+            // 
+            this.clientsTableAdapter.ClearBeforeFill = true;
+            // 
+            // SMS
+            // 
+            this.SMS.HeaderText = "SMS";
+            this.SMS.Name = "SMS";
+            this.SMS.ReadOnly = true;
+            // 
+            // ClientSector
+            // 
+            this.ClientSector.HeaderText = "Sector";
+            this.ClientSector.Name = "ClientSector";
+            this.ClientSector.ReadOnly = true;
+            // 
+            // ClientName
+            // 
+            this.ClientName.HeaderText = "Nombre";
+            this.ClientName.Name = "ClientName";
+            this.ClientName.ReadOnly = true;
+            // 
+            // ClientPhone
+            // 
+            this.ClientPhone.HeaderText = "Telefono";
+            this.ClientPhone.Name = "ClientPhone";
+            this.ClientPhone.ReadOnly = true;
+            // 
+            // send
+            // 
+            this.send.HeaderText = "Envio";
+            this.send.Name = "send";
+            this.send.ReadOnly = true;
             // 
             // Fmain
             // 
@@ -1444,7 +1477,7 @@
             this.MPmessage.ResumeLayout(false);
             this.metroPanel2.ResumeLayout(false);
             this.metroPanel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVjob)).EndInit();
             this.MTPdatabase.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -1514,8 +1547,7 @@
         private Controls.MetroLabel metroLabel11;
         private Controls.MetroTabPage MTPsend;
         private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn sdawedq;
+        private System.Windows.Forms.DataGridView DGVjob;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private Controls.MetroPanel MPsectors;
         private Controls.MetroTile metroTile3;
@@ -1564,6 +1596,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn messageDataGridViewTextBoxColumn;
         private Controls.MetroLabel MLemei;
         private System.ComponentModel.BackgroundWorker BWsend;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SMS;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ClientSector;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ClientName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ClientPhone;
+        private System.Windows.Forms.DataGridViewTextBoxColumn send;
     }
 }
 
