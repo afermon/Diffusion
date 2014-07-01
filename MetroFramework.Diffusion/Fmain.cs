@@ -571,5 +571,20 @@ namespace MetroFramework.Diffusion
             System.Diagnostics.Process.Start("http://icons8.com/");
         }
 
+        private void MLmetro_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://viperneo.github.io/winforms-modernui/");
+        }
+
+        private void MLfermongroup_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://www.fermongroup.com/");
+        }
+
+        private void MLsupport_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://www.fermongroup.com/contact/");
+        }
+
     }
 }
