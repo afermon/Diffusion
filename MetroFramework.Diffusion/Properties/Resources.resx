@@ -118,43 +118,46 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="medium_connection-256" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\medium_connection-256.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="disconnected-26" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\disconnected-26.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="no_connection-256" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\no_connection-256.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="sms-512" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sms-512.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="megafone1-512" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\megafone1-512.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="money_bag-26" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\money_bag-26.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="megafone2-512" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\megafone2-512.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="high_connection-256" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\high_connection-256.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="low_connection-256" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\low_connection-256.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="no_connection-256" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\no_connection-256.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="high_connection-26" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\high_connection-26.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="post_office-26" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\post_office-26.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="high_connection-26" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\high_connection-26.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="megafone2-512" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\megafone2-512.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="forward-26" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\forward-26.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="message_outline-26" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\message_outline-26.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="forward-26" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\forward-26.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="megafone1-512" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\megafone1-512.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="high_connection-256" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\high_connection-256.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="disconnected-26" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\disconnected-26.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="low_connection-256" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\low_connection-256.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="money_bag-26" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\money_bag-26.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="medium_connection-256" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\medium_connection-256.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FG_LOGO_128" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FG_LOGO_128.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

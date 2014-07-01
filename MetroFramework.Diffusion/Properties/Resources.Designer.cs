@@ -73,6 +73,16 @@ namespace MetroFramework.Diffusion.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap FG_LOGO_128 {
+            get {
+                object obj = ResourceManager.GetObject("FG_LOGO_128", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap forward_26 {
             get {
                 object obj = ResourceManager.GetObject("forward-26", resourceCulture);

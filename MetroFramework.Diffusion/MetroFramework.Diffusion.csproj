@@ -138,6 +138,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="megafone2-512.ico" />
+    <None Include="Resources\FG_LOGO_128.png" />
     <None Include="Resources\forward-26.png" />
     <None Include="Resources\no_connection-256.png" />
     <None Include="Resources\medium_connection-256.png" />

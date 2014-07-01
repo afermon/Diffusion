@@ -47,6 +47,7 @@ namespace MetroFramework.Diffusion
             loadportconfig();
             loadnetconfig();
             //Load sectors
+            MLinfo.Text = Application.ProductVersion;
             foreach (DataRow sectors in this.clientsTableAdapter.GetSectors().Rows)
             {
                 this.LBsectors.Items.Add(sectors["ClientSector"].ToString());
@@ -564,6 +565,11 @@ namespace MetroFramework.Diffusion
             MPSprogress.Visible = false;
         }
         #endregion
+
+        private void MLicon8_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://icons8.com/");
+        }
 
     }
 }

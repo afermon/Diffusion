@@ -74,6 +74,7 @@
             this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
             this.lineShape1 = new Microsoft.VisualBasic.PowerPacks.LineShape();
             this.metroPanel7 = new MetroFramework.Controls.MetroPanel();
+            this.MTBpending = new MetroFramework.Controls.MetroTextBox();
             this.metroTile6 = new MetroFramework.Controls.MetroTile();
             this.DGVjob = new System.Windows.Forms.DataGridView();
             this.SMS = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -132,16 +133,29 @@
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.hour = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MTPabout = new MetroFramework.Controls.MetroTabPage();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
-            this.metroLabel12 = new MetroFramework.Controls.MetroLabel();
+            this.metroPanel10 = new MetroFramework.Controls.MetroPanel();
+            this.metroLabel21 = new MetroFramework.Controls.MetroLabel();
+            this.MLicon8 = new MetroFramework.Controls.MetroLink();
             this.metroLabel11 = new MetroFramework.Controls.MetroLabel();
+            this.metroPanel9 = new MetroFramework.Controls.MetroPanel();
+            this.MLmetro = new MetroFramework.Controls.MetroLink();
+            this.metroLabel12 = new MetroFramework.Controls.MetroLabel();
+            this.metroLink1 = new MetroFramework.Controls.MetroLink();
+            this.metroLabel20 = new MetroFramework.Controls.MetroLabel();
+            this.metroPanel8 = new MetroFramework.Controls.MetroPanel();
+            this.MLinfo = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel19 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel18 = new MetroFramework.Controls.MetroLabel();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.SerialPort = new System.IO.Ports.SerialPort(this.components);
             this.MPBprogress = new MetroFramework.Controls.MetroProgressBar();
             this.MPSprogress = new MetroFramework.Controls.MetroProgressSpinner();
             this.BWconnect = new System.ComponentModel.BackgroundWorker();
             this.BWsend = new System.ComponentModel.BackgroundWorker();
             this.clientsTableAdapter = new MetroFramework.Diffusion.Diffusion_DataBaseDataSetTableAdapters.ClientsTableAdapter();
-            this.MTBpending = new MetroFramework.Controls.MetroTextBox();
             this.MTCmain.SuspendLayout();
             this.MTPhome.SuspendLayout();
             this.metroPanel6.SuspendLayout();
@@ -173,7 +187,13 @@
             this.metroPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVlog)).BeginInit();
             this.MTPabout.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.metroPanel1.SuspendLayout();
+            this.metroPanel10.SuspendLayout();
+            this.metroPanel9.SuspendLayout();
+            this.metroPanel8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // MTCmain
@@ -188,7 +208,7 @@
             this.MTCmain.Controls.Add(this.MTPabout);
             this.MTCmain.Location = new System.Drawing.Point(3, 63);
             this.MTCmain.Name = "MTCmain";
-            this.MTCmain.SelectedIndex = 0;
+            this.MTCmain.SelectedIndex = 4;
             this.MTCmain.Size = new System.Drawing.Size(793, 501);
             this.MTCmain.Style = MetroFramework.MetroColorStyle.Orange;
             this.MTCmain.TabIndex = 0;
@@ -313,11 +333,12 @@
             // PBsignal
             // 
             this.PBsignal.BackColor = System.Drawing.Color.Transparent;
-            this.PBsignal.BackgroundImage = global::MetroFramework.Diffusion.Properties.Resources.no_connection_256;
             this.PBsignal.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.PBsignal.Image = global::MetroFramework.Diffusion.Properties.Resources.no_connection_256;
             this.PBsignal.Location = new System.Drawing.Point(3, 33);
             this.PBsignal.Name = "PBsignal";
             this.PBsignal.Size = new System.Drawing.Size(50, 35);
+            this.PBsignal.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.PBsignal.TabIndex = 3;
             this.PBsignal.TabStop = false;
             // 
@@ -625,6 +646,23 @@
             this.metroPanel7.VerticalScrollbarBarColor = true;
             this.metroPanel7.VerticalScrollbarHighlightOnWheel = false;
             this.metroPanel7.VerticalScrollbarSize = 10;
+            // 
+            // MTBpending
+            // 
+            this.MTBpending.Lines = new string[] {
+        "0"};
+            this.MTBpending.Location = new System.Drawing.Point(16, 35);
+            this.MTBpending.MaxLength = 32767;
+            this.MTBpending.Name = "MTBpending";
+            this.MTBpending.PasswordChar = '\0';
+            this.MTBpending.ReadOnly = true;
+            this.MTBpending.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.MTBpending.SelectedText = "";
+            this.MTBpending.Size = new System.Drawing.Size(167, 23);
+            this.MTBpending.TabIndex = 4;
+            this.MTBpending.Text = "0";
+            this.MTBpending.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.MTBpending.UseSelectable = true;
             // 
             // metroTile6
             // 
@@ -1404,7 +1442,7 @@
             // 
             // MTPabout
             // 
-            this.MTPabout.Controls.Add(this.metroPanel1);
+            this.MTPabout.Controls.Add(this.tableLayoutPanel1);
             this.MTPabout.HorizontalScrollbarBarColor = true;
             this.MTPabout.HorizontalScrollbarHighlightOnWheel = false;
             this.MTPabout.HorizontalScrollbarSize = 10;
@@ -1417,38 +1455,205 @@
             this.MTPabout.VerticalScrollbarHighlightOnWheel = false;
             this.MTPabout.VerticalScrollbarSize = 10;
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 400F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.metroPanel1, 1, 1);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 3);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 400F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(789, 460);
+            this.tableLayoutPanel1.TabIndex = 3;
+            // 
             // metroPanel1
             // 
-            this.metroPanel1.Controls.Add(this.metroLabel12);
-            this.metroPanel1.Controls.Add(this.metroLabel11);
+            this.metroPanel1.Controls.Add(this.metroPanel10);
+            this.metroPanel1.Controls.Add(this.metroPanel9);
+            this.metroPanel1.Controls.Add(this.metroLink1);
+            this.metroPanel1.Controls.Add(this.metroLabel20);
+            this.metroPanel1.Controls.Add(this.metroPanel8);
+            this.metroPanel1.Controls.Add(this.metroLabel18);
+            this.metroPanel1.Controls.Add(this.pictureBox2);
+            this.metroPanel1.Controls.Add(this.pictureBox1);
+            this.metroPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.metroPanel1.HorizontalScrollbarBarColor = true;
             this.metroPanel1.HorizontalScrollbarHighlightOnWheel = false;
             this.metroPanel1.HorizontalScrollbarSize = 10;
-            this.metroPanel1.Location = new System.Drawing.Point(211, 63);
+            this.metroPanel1.Location = new System.Drawing.Point(197, 33);
             this.metroPanel1.Name = "metroPanel1";
-            this.metroPanel1.Size = new System.Drawing.Size(361, 322);
+            this.metroPanel1.Size = new System.Drawing.Size(394, 394);
             this.metroPanel1.TabIndex = 2;
             this.metroPanel1.VerticalScrollbarBarColor = true;
             this.metroPanel1.VerticalScrollbarHighlightOnWheel = false;
             this.metroPanel1.VerticalScrollbarSize = 10;
             // 
-            // metroLabel12
+            // metroPanel10
             // 
-            this.metroLabel12.AutoSize = true;
-            this.metroLabel12.Location = new System.Drawing.Point(68, 274);
-            this.metroLabel12.Name = "metroLabel12";
-            this.metroLabel12.Size = new System.Drawing.Size(218, 19);
-            this.metroLabel12.TabIndex = 3;
-            this.metroLabel12.Text = "Frontend usando Metro Framework";
+            this.metroPanel10.Controls.Add(this.metroLabel21);
+            this.metroPanel10.Controls.Add(this.MLicon8);
+            this.metroPanel10.Controls.Add(this.metroLabel11);
+            this.metroPanel10.HorizontalScrollbarBarColor = true;
+            this.metroPanel10.HorizontalScrollbarHighlightOnWheel = false;
+            this.metroPanel10.HorizontalScrollbarSize = 10;
+            this.metroPanel10.Location = new System.Drawing.Point(48, 311);
+            this.metroPanel10.Name = "metroPanel10";
+            this.metroPanel10.Size = new System.Drawing.Size(297, 33);
+            this.metroPanel10.TabIndex = 12;
+            this.metroPanel10.VerticalScrollbarBarColor = true;
+            this.metroPanel10.VerticalScrollbarHighlightOnWheel = false;
+            this.metroPanel10.VerticalScrollbarSize = 10;
+            // 
+            // metroLabel21
+            // 
+            this.metroLabel21.AutoSize = true;
+            this.metroLabel21.Location = new System.Drawing.Point(171, 3);
+            this.metroLabel21.Name = "metroLabel21";
+            this.metroLabel21.Size = new System.Drawing.Size(121, 19);
+            this.metroLabel21.TabIndex = 4;
+            this.metroLabel21.Text = "bajo CC BY-ND 3.0";
+            // 
+            // MLicon8
+            // 
+            this.MLicon8.Location = new System.Drawing.Point(70, 1);
+            this.MLicon8.Name = "MLicon8";
+            this.MLicon8.Size = new System.Drawing.Size(106, 23);
+            this.MLicon8.TabIndex = 3;
+            this.MLicon8.Text = "www.icons8.com";
+            this.MLicon8.UseSelectable = true;
+            this.MLicon8.Click += new System.EventHandler(this.MLicon8_Click);
             // 
             // metroLabel11
             // 
             this.metroLabel11.AutoSize = true;
-            this.metroLabel11.Location = new System.Drawing.Point(110, 293);
+            this.metroLabel11.Location = new System.Drawing.Point(3, 3);
             this.metroLabel11.Name = "metroLabel11";
-            this.metroLabel11.Size = new System.Drawing.Size(135, 19);
+            this.metroLabel11.Size = new System.Drawing.Size(71, 19);
             this.metroLabel11.TabIndex = 2;
-            this.metroLabel11.Text = "Iconos por Icon8.com";
+            this.metroLabel11.Text = "Iconos por";
+            // 
+            // metroPanel9
+            // 
+            this.metroPanel9.Controls.Add(this.MLmetro);
+            this.metroPanel9.Controls.Add(this.metroLabel12);
+            this.metroPanel9.HorizontalScrollbarBarColor = true;
+            this.metroPanel9.HorizontalScrollbarHighlightOnWheel = false;
+            this.metroPanel9.HorizontalScrollbarSize = 10;
+            this.metroPanel9.Location = new System.Drawing.Point(84, 275);
+            this.metroPanel9.Name = "metroPanel9";
+            this.metroPanel9.Size = new System.Drawing.Size(224, 30);
+            this.metroPanel9.TabIndex = 11;
+            this.metroPanel9.VerticalScrollbarBarColor = true;
+            this.metroPanel9.VerticalScrollbarHighlightOnWheel = false;
+            this.metroPanel9.VerticalScrollbarSize = 10;
+            // 
+            // MLmetro
+            // 
+            this.MLmetro.Location = new System.Drawing.Point(106, 2);
+            this.MLmetro.Name = "MLmetro";
+            this.MLmetro.Size = new System.Drawing.Size(114, 23);
+            this.MLmetro.TabIndex = 4;
+            this.MLmetro.Text = "Metro Framework";
+            this.MLmetro.UseSelectable = true;
+            // 
+            // metroLabel12
+            // 
+            this.metroLabel12.AutoSize = true;
+            this.metroLabel12.Location = new System.Drawing.Point(3, 3);
+            this.metroLabel12.Name = "metroLabel12";
+            this.metroLabel12.Size = new System.Drawing.Size(108, 19);
+            this.metroLabel12.TabIndex = 3;
+            this.metroLabel12.Text = "Frontend usando";
+            // 
+            // metroLink1
+            // 
+            this.metroLink1.Location = new System.Drawing.Point(122, 246);
+            this.metroLink1.Name = "metroLink1";
+            this.metroLink1.Size = new System.Drawing.Size(149, 23);
+            this.metroLink1.TabIndex = 10;
+            this.metroLink1.Text = "www.fermongroup.com";
+            this.metroLink1.UseSelectable = true;
+            // 
+            // metroLabel20
+            // 
+            this.metroLabel20.AutoSize = true;
+            this.metroLabel20.Location = new System.Drawing.Point(122, 224);
+            this.metroLabel20.Name = "metroLabel20";
+            this.metroLabel20.Size = new System.Drawing.Size(149, 19);
+            this.metroLabel20.TabIndex = 9;
+            this.metroLabel20.Text = "Fermon Group Proyects";
+            // 
+            // metroPanel8
+            // 
+            this.metroPanel8.Controls.Add(this.MLinfo);
+            this.metroPanel8.Controls.Add(this.metroLabel19);
+            this.metroPanel8.HorizontalScrollbarBarColor = true;
+            this.metroPanel8.HorizontalScrollbarHighlightOnWheel = false;
+            this.metroPanel8.HorizontalScrollbarSize = 10;
+            this.metroPanel8.Location = new System.Drawing.Point(144, 97);
+            this.metroPanel8.Name = "metroPanel8";
+            this.metroPanel8.Size = new System.Drawing.Size(104, 23);
+            this.metroPanel8.TabIndex = 8;
+            this.metroPanel8.VerticalScrollbarBarColor = true;
+            this.metroPanel8.VerticalScrollbarHighlightOnWheel = false;
+            this.metroPanel8.VerticalScrollbarSize = 10;
+            // 
+            // MLinfo
+            // 
+            this.MLinfo.AutoSize = true;
+            this.MLinfo.Location = new System.Drawing.Point(54, 1);
+            this.MLinfo.Name = "MLinfo";
+            this.MLinfo.Size = new System.Drawing.Size(44, 19);
+            this.MLinfo.TabIndex = 8;
+            this.MLinfo.Text = "1.0.0.0";
+            // 
+            // metroLabel19
+            // 
+            this.metroLabel19.AutoSize = true;
+            this.metroLabel19.Location = new System.Drawing.Point(0, 1);
+            this.metroLabel19.Name = "metroLabel19";
+            this.metroLabel19.Size = new System.Drawing.Size(54, 19);
+            this.metroLabel19.TabIndex = 7;
+            this.metroLabel19.Text = "Version:";
+            // 
+            // metroLabel18
+            // 
+            this.metroLabel18.AutoSize = true;
+            this.metroLabel18.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.metroLabel18.Location = new System.Drawing.Point(157, 69);
+            this.metroLabel18.Name = "metroLabel18";
+            this.metroLabel18.Size = new System.Drawing.Size(79, 25);
+            this.metroLabel18.TabIndex = 6;
+            this.metroLabel18.Text = "Diffusion";
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::MetroFramework.Diffusion.Properties.Resources.FG_LOGO_128;
+            this.pictureBox2.Location = new System.Drawing.Point(132, 126);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(128, 95);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox2.TabIndex = 5;
+            this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::MetroFramework.Diffusion.Properties.Resources.megafone2_512;
+            this.pictureBox1.Location = new System.Drawing.Point(171, 16);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(50, 50);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 4;
+            this.pictureBox1.TabStop = false;
             // 
             // SerialPort
             // 
@@ -1493,23 +1698,6 @@
             // clientsTableAdapter
             // 
             this.clientsTableAdapter.ClearBeforeFill = true;
-            // 
-            // MTBpending
-            // 
-            this.MTBpending.Lines = new string[] {
-        "0"};
-            this.MTBpending.Location = new System.Drawing.Point(16, 35);
-            this.MTBpending.MaxLength = 32767;
-            this.MTBpending.Name = "MTBpending";
-            this.MTBpending.PasswordChar = '\0';
-            this.MTBpending.ReadOnly = true;
-            this.MTBpending.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.MTBpending.SelectedText = "";
-            this.MTBpending.Size = new System.Drawing.Size(167, 23);
-            this.MTBpending.TabIndex = 4;
-            this.MTBpending.Text = "0";
-            this.MTBpending.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.MTBpending.UseSelectable = true;
             // 
             // Fmain
             // 
@@ -1563,8 +1751,17 @@
             this.metroPanel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGVlog)).EndInit();
             this.MTPabout.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.metroPanel1.ResumeLayout(false);
             this.metroPanel1.PerformLayout();
+            this.metroPanel10.ResumeLayout(false);
+            this.metroPanel10.PerformLayout();
+            this.metroPanel9.ResumeLayout(false);
+            this.metroPanel9.PerformLayout();
+            this.metroPanel8.ResumeLayout(false);
+            this.metroPanel8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1674,6 +1871,20 @@
         private Controls.MetroPanel metroPanel7;
         private Controls.MetroTile metroTile6;
         private Controls.MetroTextBox MTBpending;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private Controls.MetroPanel metroPanel10;
+        private Controls.MetroLabel metroLabel21;
+        private Controls.MetroLink MLicon8;
+        private Controls.MetroPanel metroPanel9;
+        private Controls.MetroLink MLmetro;
+        private Controls.MetroLink metroLink1;
+        private Controls.MetroLabel metroLabel20;
+        private Controls.MetroPanel metroPanel8;
+        private Controls.MetroLabel MLinfo;
+        private Controls.MetroLabel metroLabel19;
+        private Controls.MetroLabel metroLabel18;
     }
 }
 
