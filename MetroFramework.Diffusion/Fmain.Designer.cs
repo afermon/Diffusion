@@ -73,6 +73,11 @@
             this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
             this.lineShape1 = new Microsoft.VisualBasic.PowerPacks.LineShape();
             this.DGVjob = new System.Windows.Forms.DataGridView();
+            this.SMS = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ClientSector = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ClientName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ClientPhone = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.send = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MTPdatabase = new MetroFramework.Controls.MetroTabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.DGVdatabase = new System.Windows.Forms.DataGridView();
@@ -133,11 +138,6 @@
             this.BWconnect = new System.ComponentModel.BackgroundWorker();
             this.BWsend = new System.ComponentModel.BackgroundWorker();
             this.clientsTableAdapter = new MetroFramework.Diffusion.Diffusion_DataBaseDataSetTableAdapters.ClientsTableAdapter();
-            this.SMS = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ClientSector = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ClientName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ClientPhone = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.send = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MTCmain.SuspendLayout();
             this.MTPhome.SuspendLayout();
             this.metroPanel4.SuspendLayout();
@@ -633,6 +633,36 @@
             this.DGVjob.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.DGVjob.Size = new System.Drawing.Size(785, 202);
             this.DGVjob.TabIndex = 0;
+            // 
+            // SMS
+            // 
+            this.SMS.HeaderText = "SMS";
+            this.SMS.Name = "SMS";
+            this.SMS.ReadOnly = true;
+            // 
+            // ClientSector
+            // 
+            this.ClientSector.HeaderText = "Sector";
+            this.ClientSector.Name = "ClientSector";
+            this.ClientSector.ReadOnly = true;
+            // 
+            // ClientName
+            // 
+            this.ClientName.HeaderText = "Nombre";
+            this.ClientName.Name = "ClientName";
+            this.ClientName.ReadOnly = true;
+            // 
+            // ClientPhone
+            // 
+            this.ClientPhone.HeaderText = "Telefono";
+            this.ClientPhone.Name = "ClientPhone";
+            this.ClientPhone.ReadOnly = true;
+            // 
+            // send
+            // 
+            this.send.HeaderText = "Envio";
+            this.send.Name = "send";
+            this.send.ReadOnly = true;
             // 
             // MTPdatabase
             // 
@@ -1413,36 +1443,6 @@
             // clientsTableAdapter
             // 
             this.clientsTableAdapter.ClearBeforeFill = true;
-            // 
-            // SMS
-            // 
-            this.SMS.HeaderText = "SMS";
-            this.SMS.Name = "SMS";
-            this.SMS.ReadOnly = true;
-            // 
-            // ClientSector
-            // 
-            this.ClientSector.HeaderText = "Sector";
-            this.ClientSector.Name = "ClientSector";
-            this.ClientSector.ReadOnly = true;
-            // 
-            // ClientName
-            // 
-            this.ClientName.HeaderText = "Nombre";
-            this.ClientName.Name = "ClientName";
-            this.ClientName.ReadOnly = true;
-            // 
-            // ClientPhone
-            // 
-            this.ClientPhone.HeaderText = "Telefono";
-            this.ClientPhone.Name = "ClientPhone";
-            this.ClientPhone.ReadOnly = true;
-            // 
-            // send
-            // 
-            this.send.HeaderText = "Envio";
-            this.send.Name = "send";
-            this.send.ReadOnly = true;
             // 
             // Fmain
             // 

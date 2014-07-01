@@ -64,6 +64,8 @@ namespace MetroFramework.Diffusion
                    LOG("SMS pending");
                 }
             }
+            //disabled tabs
+           
         }
         private void loadportconfig()
         { //load port config from properties
