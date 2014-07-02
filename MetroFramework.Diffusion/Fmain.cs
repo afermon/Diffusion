@@ -604,17 +604,13 @@ namespace MetroFramework.Diffusion
         private void BWimport_DoWork(object sender, DoWorkEventArgs e)
         {
             MBimport.Enabled = false;
+            MPSprogress.Visible = true;
             Excel.Application excelApp = new Excel.Application();
-            Excel.Workbook workbook;
-            Excel.Worksheet worksheet;
-            Excel.Range range;
-            workbook = excelApp.Workbooks.Open(OFDimport.FileName);
-            worksheet = (Excel.Worksheet)workbook.Sheets["Test Sheet"];
-
+            Excel.Workbook workbook = excelApp.Workbooks.Open(OFDimport.FileName);
+            Excel.Worksheet worksheet = (Excel.Worksheet)workbook.Sheets[1];
+            Excel.Range range = worksheet.UsedRange;
             int column = 0;
             int row = 0;
-
-            range = worksheet.UsedRange;
             DataTable dt = new DataTable();
             /*dt.Columns.Add("ID");
             dt.Columns.Add("Name");
@@ -622,7 +618,6 @@ namespace MetroFramework.Diffusion
             dt.Columns.Add("Web Site");*/
             for (column = 1; column <= range.Columns.Count; column++)
             {
-                //dr[column - 1] = (range.Cells[row, column] as Excel.Range).Value2.ToString();
                 dt.Columns.Add((range.Cells[1, column] as Excel.Range).Value2.ToString());
             }
             for (row = 2; row <= range.Rows.Count; row++)
@@ -638,6 +633,7 @@ namespace MetroFramework.Diffusion
             workbook.Close(true, Missing.Value, Missing.Value);
             excelApp.Quit();
             DGVtest.DataSource = dt.DefaultView;
+            MPSprogress.Visible = true;
             MBimport.Enabled = true;
 
         }
@@ -646,5 +642,18 @@ namespace MetroFramework.Diffusion
 
         }
         #endregion
+
+        private void MBexport_Click(object sender, EventArgs e)
+        {
+            SFDexport.Filter = "Excel 97-2003(*.xls)|*.xls";
+            SFDexport.FileName = "import";
+            if (this.SFDexport.ShowDialog() == DialogResult.OK)
+            {
+                if (SFDexport.FileName != "")
+                {
+                    File.Copy(Directory.GetCurrentDirectory() + "\\import.xls",SFDexport.FileName);
+                }
+            }
+        }
     }
 }
