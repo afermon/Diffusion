@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MetroFramework.Forms;// interface metro
 using System.IO.Ports; // Serial Port
+using System.Data.OleDb;
+using System.IO;
+using Excel = Microsoft.Office.Interop.Excel;
+using System.Reflection;
 
 namespace MetroFramework.Diffusion
 {
@@ -21,6 +25,7 @@ namespace MetroFramework.Diffusion
         }
         #region Variables
         private string InputBuffer = "buffer";//never null
+        private string ImportConnectionString;
         private bool NewData = false;
         private int signal;
         #endregion
@@ -565,26 +570,81 @@ namespace MetroFramework.Diffusion
             MPSprogress.Visible = false;
         }
         #endregion
-
+        #region Links
         private void MLicon8_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("http://icons8.com/");
         }
-
         private void MLmetro_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("http://viperneo.github.io/winforms-modernui/");
         }
-
         private void MLfermongroup_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("http://www.fermongroup.com/");
         }
-
         private void MLsupport_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("http://www.fermongroup.com/contact/");
         }
+        #endregion
+        #region imports
+        private void MBimport_Click(object sender, EventArgs e)
+        {
+            if (this.OFDimport.ShowDialog() == DialogResult.OK)
+            {
+                if (System.IO.File.Exists(OFDimport.FileName))
+                {
+                    
+                        BWimport.RunWorkerAsync();
+                    
+                }
+            }
+        }
+        private void BWimport_DoWork(object sender, DoWorkEventArgs e)
+        {
+            MBimport.Enabled = false;
+            Excel.Application excelApp = new Excel.Application();
+            Excel.Workbook workbook;
+            Excel.Worksheet worksheet;
+            Excel.Range range;
+            workbook = excelApp.Workbooks.Open(OFDimport.FileName);
+            worksheet = (Excel.Worksheet)workbook.Sheets["Test Sheet"];
 
+            int column = 0;
+            int row = 0;
+
+            range = worksheet.UsedRange;
+            DataTable dt = new DataTable();
+            /*dt.Columns.Add("ID");
+            dt.Columns.Add("Name");
+            dt.Columns.Add("Position");
+            dt.Columns.Add("Web Site");*/
+            for (column = 1; column <= range.Columns.Count; column++)
+            {
+                //dr[column - 1] = (range.Cells[row, column] as Excel.Range).Value2.ToString();
+                dt.Columns.Add((range.Cells[1, column] as Excel.Range).Value2.ToString());
+            }
+            for (row = 2; row <= range.Rows.Count; row++)
+            {
+                DataRow dr = dt.NewRow();
+                for (column = 1; column <= range.Columns.Count; column++)
+                {
+                    dr[column - 1] = (range.Cells[row, column] as Excel.Range).Value2.ToString();
+                }
+                dt.Rows.Add(dr);
+                dt.AcceptChanges();
+            }
+            workbook.Close(true, Missing.Value, Missing.Value);
+            excelApp.Quit();
+            DGVtest.DataSource = dt.DefaultView;
+            MBimport.Enabled = true;
+
+        }
+        private void BWimport_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+
+        }
+        #endregion
     }
 }
