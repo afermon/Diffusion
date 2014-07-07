@@ -28,6 +28,7 @@ namespace MetroFramework.Diffusion
         private string ImportConnectionString;
         private bool NewData = false;
         private int signal;
+        string already = " ";
         #endregion
         private void LOG(string message)
         {
@@ -591,58 +592,98 @@ namespace MetroFramework.Diffusion
         #region imports
         private void MBimport_Click(object sender, EventArgs e)
         {
-            if (this.OFDimport.ShowDialog() == DialogResult.OK)
+            if (MBimport.Text == "Importar")
             {
-                if (System.IO.File.Exists(OFDimport.FileName))
+                if (this.OFDimport.ShowDialog() == DialogResult.OK)
                 {
-                    
-                        BWimport.RunWorkerAsync();
-                    
+                   DialogResult resultsend = MetroMessageBox.Show(this, "Si los datos estan correctamente en el formato proceda. Recuerde el orden: Numero de abonado / cedula / Nombre / Direccion/ Sector / telefono. Ademas el telefono y el sector son obligatorios.", "Esta seguro de Importar?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                   if (resultsend == DialogResult.Yes)
+                   {
+                       if (System.IO.File.Exists(OFDimport.FileName))
+                       {
+                           MBimport.Text = "Cancelar";
+                           BWimport.RunWorkerAsync();
+                       }
+                   }
+                }
+            }
+            else
+            {
+                DialogResult resultsend = MetroMessageBox.Show(this, "Se cancelara el proceso.", "Esta seguro de cancelar", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                if (resultsend == DialogResult.Yes)
+                {
+                    MBsend.Text = "Importar";
+                    BWimport.CancelAsync();
+                    MPBprogress.Value = 0;
+                    LOG("Import canceled.");
                 }
             }
         }
         private void BWimport_DoWork(object sender, DoWorkEventArgs e)
         {
-            MBimport.Enabled = false;
             MPSprogress.Visible = true;
             Excel.Application excelApp = new Excel.Application();
             Excel.Workbook workbook = excelApp.Workbooks.Open(OFDimport.FileName);
             Excel.Worksheet worksheet = (Excel.Worksheet)workbook.Sheets[1];
             Excel.Range range = worksheet.UsedRange;
-            int column = 0;
-            int row = 0;
-            DataTable dt = new DataTable();
-            /*dt.Columns.Add("ID");
-            dt.Columns.Add("Name");
-            dt.Columns.Add("Position");
-            dt.Columns.Add("Web Site");*/
-            for (column = 1; column <= range.Columns.Count; column++)
+            if ((range.Cells[1, 1] as Excel.Range).Value2.ToString() == "Abonado" &
+                (range.Cells[1, 2] as Excel.Range).Value2.ToString() == "Cedula" &
+                (range.Cells[1, 3] as Excel.Range).Value2.ToString() == "Nombre" &
+                (range.Cells[1, 4] as Excel.Range).Value2.ToString() == "Direccion" &
+                (range.Cells[1, 5] as Excel.Range).Value2.ToString() == "Sector" &
+                (range.Cells[1, 6] as Excel.Range).Value2.ToString() == "Telefono")
             {
-                dt.Columns.Add((range.Cells[1, column] as Excel.Range).Value2.ToString());
-            }
-            for (row = 2; row <= range.Rows.Count; row++)
-            {
-                DataRow dr = dt.NewRow();
-                for (column = 1; column <= range.Columns.Count; column++)
+                MPBprogress.Maximum = range.Rows.Count - 1;
+                for (int client = 2; client <= range.Rows.Count; client++)
                 {
-                    dr[column - 1] = (range.Cells[row, column] as Excel.Range).Value2.ToString();
+                    if (clientsTableAdapter.CheckNumber((range.Cells[client, 6] as Excel.Range).Value2.ToString()) == 0)
+                    {
+                        clientsTableAdapter.InsertClient((range.Cells[client, 1] as Excel.Range).Value2.ToString(),
+                                                         (range.Cells[client, 2] as Excel.Range).Value2.ToString(),
+                                                         (range.Cells[client, 3] as Excel.Range).Value2.ToString(),
+                                                         (range.Cells[client, 4] as Excel.Range).Value2.ToString(),
+                                                         (range.Cells[client, 5] as Excel.Range).Value2.ToString(),
+                                                         (range.Cells[client, 6] as Excel.Range).Value2.ToString());
+
+                    }
+                    else
+                    {
+                        already = already + client.ToString() + ", ";
+                    }
+                    BWimport.ReportProgress(client);
+                    if (BWsend.CancellationPending)
+                    {
+                        e.Cancel = true;
+                        return;
+                    }
                 }
-                dt.Rows.Add(dr);
-                dt.AcceptChanges();
+            }
+            else
+            {
+                MetroMessageBox.Show(this, "Por favor intente exportar el formato desde el programa y luego agregar los datos en el excel. No modifique los nombres de las columnas y mantenga el orden de las mismas.", "Formato incorrecto!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             workbook.Close(true, Missing.Value, Missing.Value);
             excelApp.Quit();
-            DGVtest.DataSource = dt.DefaultView;
-            MPSprogress.Visible = true;
-            MBimport.Enabled = true;
-
+        }
+        private void BWimport_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            MPBprogress.Value = e.ProgressPercentage;
         }
         private void BWimport_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-
+            if (already != " ")
+            {
+                MetroMessageBox.Show(this, MPBprogress.Value.ToString() + " procesados correctamente. Registros que ya estaban en la base de datos:" + already, "Datos importados!", MessageBoxButtons.OK, MessageBoxIcon.Question);
+            }
+            else
+            {
+                MetroMessageBox.Show(this, MPBprogress.Value.ToString() + " procesados correctamente.", "Datos importados!", MessageBoxButtons.OK, MessageBoxIcon.Question);
+            }
+            this.clientsTableAdapter.Fill(this.diffusion_DataBaseDataSet.Clients);
+            MPBprogress.Value = 0;
+            MPSprogress.Visible = true;
+            MBimport.Text = "Importar";
         }
-        #endregion
-
         private void MBexport_Click(object sender, EventArgs e)
         {
             SFDexport.Filter = "Excel 97-2003(*.xls)|*.xls";
@@ -651,9 +692,11 @@ namespace MetroFramework.Diffusion
             {
                 if (SFDexport.FileName != "")
                 {
-                    File.Copy(Directory.GetCurrentDirectory() + "\\import.xls",SFDexport.FileName);
+                    File.Copy(Directory.GetCurrentDirectory() + "\\import.xls", SFDexport.FileName);
                 }
             }
         }
+        #endregion
+
     }
 }
