@@ -167,6 +167,11 @@
             this.BWimport = new System.ComponentModel.BackgroundWorker();
             this.SFDexport = new System.Windows.Forms.SaveFileDialog();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.metroPanel13 = new MetroFramework.Controls.MetroPanel();
+            this.metroLabel23 = new MetroFramework.Controls.MetroLabel();
+            this.MLsmssent = new MetroFramework.Controls.MetroLabel();
+            this.MLruntimes = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel26 = new MetroFramework.Controls.MetroLabel();
             this.MTCmain.SuspendLayout();
             this.MTPhome.SuspendLayout();
             this.metroPanel6.SuspendLayout();
@@ -210,6 +215,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            this.metroPanel13.SuspendLayout();
             this.SuspendLayout();
             // 
             // MTCmain
@@ -232,6 +238,7 @@
             // 
             // MTPhome
             // 
+            this.MTPhome.Controls.Add(this.metroPanel13);
             this.MTPhome.Controls.Add(this.metroPanel6);
             this.MTPhome.Controls.Add(this.metroPanel4);
             this.MTPhome.Controls.Add(this.metroPanel3);
@@ -282,6 +289,7 @@
             // 
             // metroPanel4
             // 
+            this.metroPanel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.metroPanel4.Controls.Add(this.MBgetports);
             this.metroPanel4.Controls.Add(this.MBconnect);
             this.metroPanel4.Controls.Add(this.MCBports);
@@ -333,6 +341,7 @@
             // 
             // metroPanel3
             // 
+            this.metroPanel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.metroPanel3.Controls.Add(this.PBsignal);
             this.metroPanel3.Controls.Add(this.metroTile4);
             this.metroPanel3.HorizontalScrollbarBarColor = true;
@@ -1795,6 +1804,8 @@
             // 
             // BWsend
             // 
+            this.BWsend.WorkerReportsProgress = true;
+            this.BWsend.WorkerSupportsCancellation = true;
             this.BWsend.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BWsend_DoWork);
             this.BWsend.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.BWsend_ProgressChanged);
             this.BWsend.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BWsend_RunWorkerCompleted);
@@ -1830,6 +1841,59 @@
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox3.TabIndex = 4;
             this.pictureBox3.TabStop = false;
+            // 
+            // metroPanel13
+            // 
+            this.metroPanel13.Controls.Add(this.metroLabel26);
+            this.metroPanel13.Controls.Add(this.MLruntimes);
+            this.metroPanel13.Controls.Add(this.MLsmssent);
+            this.metroPanel13.Controls.Add(this.metroLabel23);
+            this.metroPanel13.HorizontalScrollbarBarColor = true;
+            this.metroPanel13.HorizontalScrollbarHighlightOnWheel = false;
+            this.metroPanel13.HorizontalScrollbarSize = 10;
+            this.metroPanel13.Location = new System.Drawing.Point(69, 129);
+            this.metroPanel13.Name = "metroPanel13";
+            this.metroPanel13.Size = new System.Drawing.Size(200, 100);
+            this.metroPanel13.TabIndex = 11;
+            this.metroPanel13.VerticalScrollbarBarColor = true;
+            this.metroPanel13.VerticalScrollbarHighlightOnWheel = false;
+            this.metroPanel13.VerticalScrollbarSize = 10;
+            // 
+            // metroLabel23
+            // 
+            this.metroLabel23.AutoSize = true;
+            this.metroLabel23.Location = new System.Drawing.Point(4, 4);
+            this.metroLabel23.Name = "metroLabel23";
+            this.metroLabel23.Size = new System.Drawing.Size(93, 19);
+            this.metroLabel23.TabIndex = 2;
+            this.metroLabel23.Text = "SMS enviados:";
+            // 
+            // MLsmssent
+            // 
+            this.MLsmssent.AutoSize = true;
+            this.MLsmssent.Location = new System.Drawing.Point(99, 4);
+            this.MLsmssent.Name = "MLsmssent";
+            this.MLsmssent.Size = new System.Drawing.Size(16, 19);
+            this.MLsmssent.TabIndex = 3;
+            this.MLsmssent.Text = "0";
+            // 
+            // MLruntimes
+            // 
+            this.MLruntimes.AutoSize = true;
+            this.MLruntimes.Location = new System.Drawing.Point(52, 23);
+            this.MLruntimes.Name = "MLruntimes";
+            this.MLruntimes.Size = new System.Drawing.Size(16, 19);
+            this.MLruntimes.TabIndex = 4;
+            this.MLruntimes.Text = "0";
+            // 
+            // metroLabel26
+            // 
+            this.metroLabel26.AutoSize = true;
+            this.metroLabel26.Location = new System.Drawing.Point(7, 23);
+            this.metroLabel26.Name = "metroLabel26";
+            this.metroLabel26.Size = new System.Drawing.Size(47, 19);
+            this.metroLabel26.TabIndex = 5;
+            this.metroLabel26.Text = "Inicios:";
             // 
             // Fmain
             // 
@@ -1901,6 +1965,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            this.metroPanel13.ResumeLayout(false);
+            this.metroPanel13.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -2035,6 +2101,11 @@
         private Controls.MetroButton MBexport;
         private System.Windows.Forms.SaveFileDialog SFDexport;
         private System.Windows.Forms.PictureBox pictureBox3;
+        private Controls.MetroPanel metroPanel13;
+        private Controls.MetroLabel metroLabel26;
+        private Controls.MetroLabel MLruntimes;
+        private Controls.MetroLabel MLsmssent;
+        private Controls.MetroLabel metroLabel23;
     }
 }
 

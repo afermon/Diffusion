@@ -27,6 +27,7 @@ namespace MetroFramework.Diffusion
         private string InputBuffer = "buffer";//never null
         private string ImportConnectionString;
         private bool NewData = false;
+        private bool rOK = false;
         private int signal;
         string already = " ";
         #endregion
@@ -50,15 +51,15 @@ namespace MetroFramework.Diffusion
         {// TODO: esta línea de código carga datos en la tabla 'diffusion_DataBaseDataSet.Clients' Puede moverla o quitarla según sea necesario.
             this.clientsTableAdapter.Fill(this.diffusion_DataBaseDataSet.Clients);
             //load config
+            Properties.Settings.Default.AppRuntimes = Properties.Settings.Default.AppRuntimes + 1;
+            Properties.Settings.Default.Save();
+            MLruntimes.Text = Properties.Settings.Default.AppRuntimes.ToString();
+            MLsmssent.Text = Properties.Settings.Default.AppSMSsent.ToString();
             loadportconfig();
             loadnetconfig();
-            //Load sectors
             MLinfo.Text = Application.ProductVersion;
-            foreach (DataRow sectors in this.clientsTableAdapter.GetSectors().Rows)
-            {
-                this.LBsectors.Items.Add(sectors["ClientSector"].ToString());
-            }
-            LOG("Sectors Loaded");
+            //Load sectors
+            loadsectors();
             if (Convert.ToInt32(clientsTableAdapter.GetPendingCount()) > 0)
             {
                 DialogResult resultsend = MetroMessageBox.Show(this, "Para enviarlos presione \"Enviar\" sin selecionar sectores.", "Tiene envios pendientes. Desea conservarlos?", MessageBoxButtons.YesNo);
@@ -71,6 +72,19 @@ namespace MetroFramework.Diffusion
                    LOG("SMS pending");
                 }
             }
+        }
+        private void loadsectors() {
+            LBsectors.Items.Clear();
+            foreach (DataRow sectors in this.clientsTableAdapter.GetSectors().Rows)
+            {
+                if (sectors["ClientSector"].ToString() == "")
+                {
+                    this.LBsectors.Items.Add("Null");
+                }else{
+                    this.LBsectors.Items.Add(sectors["ClientSector"].ToString());
+                }
+            }
+            LOG("Sectors Loaded");
         }
         private void loadportconfig()
         { //load port config from properties
@@ -270,12 +284,15 @@ namespace MetroFramework.Diffusion
         {
             try
             {
-                InputBuffer = SerialPort.ReadExisting().Trim().ToString();
-                LOG("> " + InputBuffer.Trim());
-                if (InputBuffer.Contains("+CME ERROR: 11") || InputBuffer.Contains("+CME ERROR: 12"))
+                string iBuffer;
+                iBuffer = SerialPort.ReadExisting().Trim().ToString();
+                if (iBuffer.Contains("OK")) rOK = true;
+                LOG("> " + iBuffer.Trim());
+                if (iBuffer.Contains("+CME ERROR: 11") || iBuffer.Contains("+CME ERROR: 12"))
                 {
                     MetroMessageBox.Show(this, "Actualize el pin en \"Configuración\" y reinicie la aplicacion.!", "PIN/PUK Requerido!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+                InputBuffer = iBuffer;
                 NewData = true;
             }
             catch (Exception ex)
@@ -325,7 +342,9 @@ namespace MetroFramework.Diffusion
         {
             if (SerialPort.IsOpen) SerialPort.Close();
             MBconnect.Text = "Conectar";
+            MBgetports.Enabled = true;
             LOG("Disconnected!");
+            MLemei.Text = "No Conectado";
             FLPsend.Enabled = false;
             MPport.Enabled = true;
             PBsignal.Image = MetroFramework.Diffusion.Properties.Resources.no_connection_256;
@@ -340,10 +359,13 @@ namespace MetroFramework.Diffusion
             else
             {
                 SerialDisconnect();
+                
             }
         }
         private void BWconnect_DoWork(object sender, DoWorkEventArgs e)
         {
+            MBconnect.Enabled = false;
+            MBgetports.Enabled = false;
             try
             {
                 if (SerialPort.IsOpen) SerialPort.Close();
@@ -369,8 +391,9 @@ namespace MetroFramework.Diffusion
             {
                 SerialPort.Write("AT \r");
                 wait();
-                if (InputBuffer.Contains("OK"))
+                if (rOK)
                 {
+                    rOK = false;
                     LOG("Device detected!");
                     Properties.Settings.Default.PortLastused = SerialPort.PortName;
                     Properties.Settings.Default.Save();
@@ -402,9 +425,9 @@ namespace MetroFramework.Diffusion
                         signal = Convert.ToInt32(InputBuffer.Split(',')[0]);
                         LOG("Signal: " + signal.ToString() + "db");
                         if (signal <= 0 || signal == 99) PBsignal.Image = MetroFramework.Diffusion.Properties.Resources.no_connection_256;
-                        if (signal > 0 & signal < 15) PBsignal.Image = MetroFramework.Diffusion.Properties.Resources.medium_connection_256;
-                        if (signal >= 15 & signal < 30) PBsignal.Image = MetroFramework.Diffusion.Properties.Resources.low_connection_256;
-                        if (signal >= 30 & signal < 99) PBsignal.Image = MetroFramework.Diffusion.Properties.Resources.high_connection_256;
+                        if (signal > 0 & signal < 7) PBsignal.Image = MetroFramework.Diffusion.Properties.Resources.low_connection_256;
+                        if (signal >= 7 & signal < 11) PBsignal.Image = MetroFramework.Diffusion.Properties.Resources.medium_connection_256;
+                        if (signal >= 11 & signal < 99) PBsignal.Image = MetroFramework.Diffusion.Properties.Resources.high_connection_256;
                         SerialPort.Write("AT+CGSN \r");
                         wait();
                         MLemei.Text = InputBuffer.Split('O')[0];
@@ -423,6 +446,7 @@ namespace MetroFramework.Diffusion
                     SerialDisconnect();
                 }
             }
+            MBconnect.Enabled = true;
         }
         private void BWconnect_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -511,10 +535,13 @@ namespace MetroFramework.Diffusion
                     SerialPort.Write(pending["Message"].ToString() + (Char)26);
                     Application.DoEvents();
                     wait();
-                    if (InputBuffer.Contains("OK"))
+                    if (rOK)
                     {
+                        rOK = false;
                         result = "Enviado";
                         clientsTableAdapter.UpdateSent(pending["ClientPhone"].ToString());
+                        Properties.Settings.Default.AppSMSsent = Properties.Settings.Default.AppSMSsent + 1;
+                        Properties.Settings.Default.Save();
                     }
                     else
                     {
@@ -596,7 +623,7 @@ namespace MetroFramework.Diffusion
             {
                 if (this.OFDimport.ShowDialog() == DialogResult.OK)
                 {
-                   DialogResult resultsend = MetroMessageBox.Show(this, "Si los datos estan correctamente en el formato proceda. Recuerde el orden: Numero de abonado / cedula / Nombre / Direccion/ Sector / telefono. Ademas el telefono y el sector son obligatorios.", "Esta seguro de Importar?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                   DialogResult resultsend = MetroMessageBox.Show(this, "Si los datos estan correctamente en el formato proceda. Recuerde el orden: Numero de abonado / cedula / Nombre / Direccion/ Sector / telefono. Ademas el telefono y el sector son obligatorios asi como la primera fila corresponde a los titulos.", "Esta seguro de Importar?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                    if (resultsend == DialogResult.Yes)
                    {
                        if (System.IO.File.Exists(OFDimport.FileName))
@@ -650,7 +677,7 @@ namespace MetroFramework.Diffusion
                     {
                         already = already + client.ToString() + ", ";
                     }
-                    BWimport.ReportProgress(client);
+                    BWimport.ReportProgress(client - 1);
                     if (BWsend.CancellationPending)
                     {
                         e.Cancel = true;
@@ -680,8 +707,9 @@ namespace MetroFramework.Diffusion
                 MetroMessageBox.Show(this, MPBprogress.Value.ToString() + " procesados correctamente.", "Datos importados!", MessageBoxButtons.OK, MessageBoxIcon.Question);
             }
             this.clientsTableAdapter.Fill(this.diffusion_DataBaseDataSet.Clients);
+            loadsectors();
             MPBprogress.Value = 0;
-            MPSprogress.Visible = true;
+            MPSprogress.Visible = false;
             MBimport.Text = "Importar";
         }
         private void MBexport_Click(object sender, EventArgs e)
