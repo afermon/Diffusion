@@ -166,6 +166,7 @@
             this.OFDimport = new System.Windows.Forms.OpenFileDialog();
             this.BWimport = new System.ComponentModel.BackgroundWorker();
             this.SFDexport = new System.Windows.Forms.SaveFileDialog();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.MTCmain.SuspendLayout();
             this.MTPhome.SuspendLayout();
             this.metroPanel6.SuspendLayout();
@@ -208,6 +209,7 @@
             this.metroPanel8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
             // 
             // MTCmain
@@ -222,7 +224,7 @@
             this.MTCmain.Controls.Add(this.MTPabout);
             this.MTCmain.Location = new System.Drawing.Point(3, 63);
             this.MTCmain.Name = "MTCmain";
-            this.MTCmain.SelectedIndex = 2;
+            this.MTCmain.SelectedIndex = 0;
             this.MTCmain.Size = new System.Drawing.Size(793, 501);
             this.MTCmain.Style = MetroFramework.MetroColorStyle.Orange;
             this.MTCmain.TabIndex = 0;
@@ -1819,6 +1821,16 @@
             // 
             this.SFDexport.Title = "Export";
             // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::MetroFramework.Diffusion.Properties.Resources.FG_LOGO_128;
+            this.pictureBox3.Location = new System.Drawing.Point(736, 35);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(41, 40);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 4;
+            this.pictureBox3.TabStop = false;
+            // 
             // Fmain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1827,6 +1839,7 @@
             this.BackImagePadding = new System.Windows.Forms.Padding(125, 10, 0, 0);
             this.BackMaxSize = 50;
             this.ClientSize = new System.Drawing.Size(800, 600);
+            this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.MPBprogress);
             this.Controls.Add(this.MTCmain);
             this.Controls.Add(this.MPSprogress);
@@ -1887,6 +1900,7 @@
             this.metroPanel8.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2020,6 +2034,7 @@
         private System.ComponentModel.BackgroundWorker BWimport;
         private Controls.MetroButton MBexport;
         private System.Windows.Forms.SaveFileDialog SFDexport;
+        private System.Windows.Forms.PictureBox pictureBox3;
     }
 }
 
