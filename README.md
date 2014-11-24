@@ -1,7 +1,7 @@
 Diffusion App - V2.0.0
 ===========
 SMS Bulk sender using 3G/2G modems.
-Updated to use nuew libraries in order to improve performace!.
+Updated to use new libraries in order to improve performace!
 ----------
 Project URL: http://www.fermongroup.com/blog/development/diffusion
 
@@ -29,9 +29,9 @@ Features
 
 Credits
 -------
-*Office Ribbon http://officeribbon.codeplex.com/
-*Icons by noupe y Freepik http://www.noupe.com/essentials/icons-fonts/exclusive-freebie-for-noupes-readers-freepiks-200-beautiful-flat-icons-77112.html
-*GSMComm - the "GSM Communication Library" Developed by Stefan Mayr  <http://www.scampers.org/steve/sms/libraries.htm>
+* Office Ribbon http://officeribbon.codeplex.com/
+* Icons by noupe y Freepik http://www.noupe.com/essentials/icons-fonts/exclusive-freebie-for-noupes-readers-freepiks-200-beautiful-flat-icons-77112.html
+* GSMComm - the "GSM Communication Library" Developed by Stefan Mayr  <http://www.scampers.org/steve/sms/libraries.htm>
 
 License
 -------
