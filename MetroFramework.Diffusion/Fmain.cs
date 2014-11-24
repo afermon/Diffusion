@@ -412,7 +412,7 @@ namespace MetroFramework.Diffusion
                     }
                     SerialPort.Write("AT+CREG? \r");
                     wait();
-                    if (InputBuffer.Contains("+CREG: 1,1")) //network aviable
+                    if (InputBuffer.Contains("+CREG: 1,1")) //network aviable 1,2 means NO network aviable
                     {
                         LOG("Network aviable!");
                         MBconnect.Text = "Desconectar";
