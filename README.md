@@ -1,4 +1,4 @@
-Diffusion - DEV RELEASE
+Diffusion - BRANCH
 ===========
 SMS sender throught Serial AT commands and Clients DataBase
 ----------
